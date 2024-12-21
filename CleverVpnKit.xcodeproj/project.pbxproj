@@ -7,7 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		11D2E4E12D1012BF00A76F3C /* CleverVpnFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11D2E4D62D1012BF00A76F3C /* CleverVpnFramework.framework */; };
+		110B9CF62D15CAE80039DD19 /* WireGuardKit in Frameworks */ = {isa = PBXBuildFile; productRef = 110B9CF52D15CAE80039DD19 /* WireGuardKit */; };
+		11D2E4E12D1012BF00A76F3C /* CleverVpnKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11D2E4D62D1012BF00A76F3C /* CleverVpnKit.framework */; };
+		11D2E54B2D111B8800A76F3C /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 11D2E5472D111B8800A76F3C /* Config.xcconfig */; };
+		11D2E54C2D111B8800A76F3C /* Developer.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 11D2E5482D111B8800A76F3C /* Developer.xcconfig */; };
+		11D2E54D2D111B8800A76F3C /* Version.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 11D2E5492D111B8800A76F3C /* Version.xcconfig */; };
+		11E888022D159A2F00C6B457 /* libwg-go.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 11E888012D1599B600C6B457 /* libwg-go.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -18,35 +23,46 @@
 			remoteGlobalIDString = 11D2E4D52D1012BF00A76F3C;
 			remoteInfo = CleverVpnFramework;
 		};
+		11E2FF0E2D125DDF0082AFF2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 11D2E4CD2D1012BF00A76F3C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 11D2E53E2D11177D00A76F3C;
+			remoteInfo = WireGuardGoBridgemacOS;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		11D2E4D62D1012BF00A76F3C /* CleverVpnFramework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CleverVpnFramework.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		11D2E4E02D1012BF00A76F3C /* CleverVpnFrameworkTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CleverVpnFrameworkTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		11D2E4D62D1012BF00A76F3C /* CleverVpnKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CleverVpnKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		11D2E4E02D1012BF00A76F3C /* CleverVpnKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CleverVpnKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		11D2E5472D111B8800A76F3C /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
+		11D2E5482D111B8800A76F3C /* Developer.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Developer.xcconfig; sourceTree = "<group>"; };
+		11D2E5492D111B8800A76F3C /* Version.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Version.xcconfig; sourceTree = "<group>"; };
+		11E888012D1599B600C6B457 /* libwg-go.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libwg-go.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		11D2E4E82D1012BF00A76F3C /* Exceptions for "CleverVpnFramework" folder in "CleverVpnFramework" target */ = {
+		11D2E4E82D1012BF00A76F3C /* Exceptions for "CleverVpnKit" folder in "CleverVpnKit" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			publicHeaders = (
 				CleverVpnFramework.h,
 			);
-			target = 11D2E4D52D1012BF00A76F3C /* CleverVpnFramework */;
+			target = 11D2E4D52D1012BF00A76F3C /* CleverVpnKit */;
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		11D2E4D82D1012BF00A76F3C /* CleverVpnFramework */ = {
+		11D2E4D82D1012BF00A76F3C /* CleverVpnKit */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				11D2E4E82D1012BF00A76F3C /* Exceptions for "CleverVpnFramework" folder in "CleverVpnFramework" target */,
+				11D2E4E82D1012BF00A76F3C /* Exceptions for "CleverVpnKit" folder in "CleverVpnKit" target */,
 			);
-			path = CleverVpnFramework;
+			path = CleverVpnKit;
 			sourceTree = "<group>";
 		};
-		11D2E4E42D1012BF00A76F3C /* CleverVpnFrameworkTests */ = {
+		11D2E4E42D1012BF00A76F3C /* CleverVpnKitTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = CleverVpnFrameworkTests;
+			path = CleverVpnKitTests;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -56,6 +72,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				110B9CF62D15CAE80039DD19 /* WireGuardKit in Frameworks */,
+				11E888022D159A2F00C6B457 /* libwg-go.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -63,7 +81,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				11D2E4E12D1012BF00A76F3C /* CleverVpnFramework.framework in Frameworks */,
+				11D2E4E12D1012BF00A76F3C /* CleverVpnKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -73,8 +91,10 @@
 		11D2E4CC2D1012BF00A76F3C = {
 			isa = PBXGroup;
 			children = (
-				11D2E4D82D1012BF00A76F3C /* CleverVpnFramework */,
-				11D2E4E42D1012BF00A76F3C /* CleverVpnFrameworkTests */,
+				11D2E54A2D111B8800A76F3C /* Config */,
+				11D2E4D82D1012BF00A76F3C /* CleverVpnKit */,
+				11D2E4E42D1012BF00A76F3C /* CleverVpnKitTests */,
+				11D2E5442D111A2800A76F3C /* Frameworks */,
 				11D2E4D72D1012BF00A76F3C /* Products */,
 			);
 			sourceTree = "<group>";
@@ -82,10 +102,28 @@
 		11D2E4D72D1012BF00A76F3C /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				11D2E4D62D1012BF00A76F3C /* CleverVpnFramework.framework */,
-				11D2E4E02D1012BF00A76F3C /* CleverVpnFrameworkTests.xctest */,
+				11D2E4D62D1012BF00A76F3C /* CleverVpnKit.framework */,
+				11D2E4E02D1012BF00A76F3C /* CleverVpnKitTests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		11D2E5442D111A2800A76F3C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				11E888012D1599B600C6B457 /* libwg-go.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		11D2E54A2D111B8800A76F3C /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				11D2E5472D111B8800A76F3C /* Config.xcconfig */,
+				11D2E5482D111B8800A76F3C /* Developer.xcconfig */,
+				11D2E5492D111B8800A76F3C /* Version.xcconfig */,
+			);
+			path = Config;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -100,10 +138,29 @@
 		};
 /* End PBXHeadersBuildPhase section */
 
+/* Begin PBXLegacyTarget section */
+		11D2E53E2D11177D00A76F3C /* WireGuardGoBridgemacOS */ = {
+			isa = PBXLegacyTarget;
+			buildArgumentsString = "$(ACTION)";
+			buildConfigurationList = 11D2E53F2D11177D00A76F3C /* Build configuration list for PBXLegacyTarget "WireGuardGoBridgemacOS" */;
+			buildPhases = (
+			);
+			buildToolPath = /usr/bin/make;
+			buildWorkingDirectory = "/Users/bolinwu/Clever-VPN/Clever-VPN-App/open-source/apple/wireguard-apple/Sources/WireGuardKitGo";
+			dependencies = (
+			);
+			name = WireGuardGoBridgemacOS;
+			packageProductDependencies = (
+			);
+			passBuildSettingsInEnvironment = 1;
+			productName = VpnGoBridge;
+		};
+/* End PBXLegacyTarget section */
+
 /* Begin PBXNativeTarget section */
-		11D2E4D52D1012BF00A76F3C /* CleverVpnFramework */ = {
+		11D2E4D52D1012BF00A76F3C /* CleverVpnKit */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 11D2E4E92D1012BF00A76F3C /* Build configuration list for PBXNativeTarget "CleverVpnFramework" */;
+			buildConfigurationList = 11D2E4E92D1012BF00A76F3C /* Build configuration list for PBXNativeTarget "CleverVpnKit" */;
 			buildPhases = (
 				11D2E4D12D1012BF00A76F3C /* Headers */,
 				11D2E4D22D1012BF00A76F3C /* Sources */,
@@ -113,20 +170,22 @@
 			buildRules = (
 			);
 			dependencies = (
+				11E2FF0F2D125DDF0082AFF2 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				11D2E4D82D1012BF00A76F3C /* CleverVpnFramework */,
+				11D2E4D82D1012BF00A76F3C /* CleverVpnKit */,
 			);
-			name = CleverVpnFramework;
+			name = CleverVpnKit;
 			packageProductDependencies = (
+				110B9CF52D15CAE80039DD19 /* WireGuardKit */,
 			);
 			productName = CleverVpnFramework;
-			productReference = 11D2E4D62D1012BF00A76F3C /* CleverVpnFramework.framework */;
+			productReference = 11D2E4D62D1012BF00A76F3C /* CleverVpnKit.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		11D2E4DF2D1012BF00A76F3C /* CleverVpnFrameworkTests */ = {
+		11D2E4DF2D1012BF00A76F3C /* CleverVpnKitTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 11D2E4EE2D1012BF00A76F3C /* Build configuration list for PBXNativeTarget "CleverVpnFrameworkTests" */;
+			buildConfigurationList = 11D2E4EE2D1012BF00A76F3C /* Build configuration list for PBXNativeTarget "CleverVpnKitTests" */;
 			buildPhases = (
 				11D2E4DC2D1012BF00A76F3C /* Sources */,
 				11D2E4DD2D1012BF00A76F3C /* Frameworks */,
@@ -138,13 +197,13 @@
 				11D2E4E32D1012BF00A76F3C /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				11D2E4E42D1012BF00A76F3C /* CleverVpnFrameworkTests */,
+				11D2E4E42D1012BF00A76F3C /* CleverVpnKitTests */,
 			);
-			name = CleverVpnFrameworkTests;
+			name = CleverVpnKitTests;
 			packageProductDependencies = (
 			);
 			productName = CleverVpnFrameworkTests;
-			productReference = 11D2E4E02D1012BF00A76F3C /* CleverVpnFrameworkTests.xctest */;
+			productReference = 11D2E4E02D1012BF00A76F3C /* CleverVpnKitTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -163,9 +222,12 @@
 					11D2E4DF2D1012BF00A76F3C = {
 						CreatedOnToolsVersion = 16.1;
 					};
+					11D2E53E2D11177D00A76F3C = {
+						CreatedOnToolsVersion = 16.1;
+					};
 				};
 			};
-			buildConfigurationList = 11D2E4D02D1012BF00A76F3C /* Build configuration list for PBXProject "CleverVpnFramework" */;
+			buildConfigurationList = 11D2E4D02D1012BF00A76F3C /* Build configuration list for PBXProject "CleverVpnKit" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -174,13 +236,17 @@
 			);
 			mainGroup = 11D2E4CC2D1012BF00A76F3C;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				110B9CF42D15CADA0039DD19 /* XCLocalSwiftPackageReference "../wireguard-apple" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 11D2E4D72D1012BF00A76F3C /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				11D2E4D52D1012BF00A76F3C /* CleverVpnFramework */,
-				11D2E4DF2D1012BF00A76F3C /* CleverVpnFrameworkTests */,
+				11D2E4D52D1012BF00A76F3C /* CleverVpnKit */,
+				11D2E4DF2D1012BF00A76F3C /* CleverVpnKitTests */,
+				11D2E53E2D11177D00A76F3C /* WireGuardGoBridgemacOS */,
 			);
 		};
 /* End PBXProject section */
@@ -190,6 +256,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				11D2E54B2D111B8800A76F3C /* Config.xcconfig in Resources */,
+				11D2E54C2D111B8800A76F3C /* Developer.xcconfig in Resources */,
+				11D2E54D2D111B8800A76F3C /* Version.xcconfig in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -222,8 +291,13 @@
 /* Begin PBXTargetDependency section */
 		11D2E4E32D1012BF00A76F3C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 11D2E4D52D1012BF00A76F3C /* CleverVpnFramework */;
+			target = 11D2E4D52D1012BF00A76F3C /* CleverVpnKit */;
 			targetProxy = 11D2E4E22D1012BF00A76F3C /* PBXContainerItemProxy */;
+		};
+		11E2FF0F2D125DDF0082AFF2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 11D2E53E2D11177D00A76F3C /* WireGuardGoBridgemacOS */;
+			targetProxy = 11E2FF0E2D125DDF0082AFF2 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -244,7 +318,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 18.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 15;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
@@ -253,19 +327,22 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 15.1;
+				MACH_O_TYPE = staticlib;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
 				PRODUCT_BUNDLE_IDENTIFIER = "net.clever-vpn.CleverVpnFramework";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = auto;
-				SKIP_INSTALL = YES;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SKIP_INSTALL = NO;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SUPPORTED_PLATFORMS = "appletvos appletvsimulator iphoneos iphonesimulator macosx";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_INSTALL_OBJC_HEADER = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2,7";
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = "1,2,3";
 				XROS_DEPLOYMENT_TARGET = 2.1;
 			};
 			name = Debug;
@@ -286,7 +363,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 18.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 15;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
@@ -295,25 +372,30 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 15.1;
+				MACH_O_TYPE = staticlib;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
 				PRODUCT_BUNDLE_IDENTIFIER = "net.clever-vpn.CleverVpnFramework";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = auto;
-				SKIP_INSTALL = YES;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SKIP_INSTALL = NO;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SUPPORTED_PLATFORMS = "appletvos appletvsimulator iphoneos iphonesimulator macosx";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_INSTALL_OBJC_HEADER = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2,7";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = "1,2,3";
 				XROS_DEPLOYMENT_TARGET = 2.1;
 			};
 			name = Release;
 		};
 		11D2E4EC2D1012BF00A76F3C /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 11D2E5472D111B8800A76F3C /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -369,8 +451,10 @@
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				PATH = "${PATH}:/usr/local/go/bin";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = "";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -378,6 +462,7 @@
 		};
 		11D2E4ED2D1012BF00A76F3C /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 11D2E5472D111B8800A76F3C /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -426,7 +511,10 @@
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
+				PATH = "${PATH}:/usr/local/go/bin";
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = "";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -476,10 +564,39 @@
 			};
 			name = Release;
 		};
+		11D2E5402D11177D00A76F3C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEBUGGING_SYMBOLS = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = MK7X98FMYX;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PATH = "${PATH}:/usr/local/go/bin:/opt/homebrew/bin";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		11D2E5412D11177D00A76F3C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = MK7X98FMYX;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PATH = "${PATH}:/usr/local/go/bin:/opt/homebrew/bin";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		11D2E4D02D1012BF00A76F3C /* Build configuration list for PBXProject "CleverVpnFramework" */ = {
+		11D2E4D02D1012BF00A76F3C /* Build configuration list for PBXProject "CleverVpnKit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				11D2E4EC2D1012BF00A76F3C /* Debug */,
@@ -488,7 +605,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		11D2E4E92D1012BF00A76F3C /* Build configuration list for PBXNativeTarget "CleverVpnFramework" */ = {
+		11D2E4E92D1012BF00A76F3C /* Build configuration list for PBXNativeTarget "CleverVpnKit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				11D2E4EA2D1012BF00A76F3C /* Debug */,
@@ -497,7 +614,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		11D2E4EE2D1012BF00A76F3C /* Build configuration list for PBXNativeTarget "CleverVpnFrameworkTests" */ = {
+		11D2E4EE2D1012BF00A76F3C /* Build configuration list for PBXNativeTarget "CleverVpnKitTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				11D2E4EF2D1012BF00A76F3C /* Debug */,
@@ -506,7 +623,31 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		11D2E53F2D11177D00A76F3C /* Build configuration list for PBXLegacyTarget "WireGuardGoBridgemacOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				11D2E5402D11177D00A76F3C /* Debug */,
+				11D2E5412D11177D00A76F3C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 /* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		110B9CF42D15CADA0039DD19 /* XCLocalSwiftPackageReference "../wireguard-apple" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = "../wireguard-apple";
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		110B9CF52D15CAE80039DD19 /* WireGuardKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 110B9CF42D15CADA0039DD19 /* XCLocalSwiftPackageReference "../wireguard-apple" */;
+			productName = WireGuardKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 11D2E4CD2D1012BF00A76F3C /* Project object */;
 }
