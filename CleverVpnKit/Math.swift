@@ -7,7 +7,7 @@
 
 import Foundation
 
-
+internal import WireGuardKit
 internal import WireGuardKitGo
 
 public class SimpleAlgorithms {
@@ -47,9 +47,10 @@ public class SimpleAlgorithms {
 
 
 
-
 func wgVersionEx() -> String {
-    if let versionCString = wgVersion() {
+//    if let versionCString = wgVersion() {
+
+    if let versionCString = kudpTest() {
         return String(cString: versionCString)
     } else {
         return "Unknown version"

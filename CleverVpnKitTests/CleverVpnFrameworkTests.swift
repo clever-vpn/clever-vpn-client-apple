@@ -6,9 +6,9 @@
 //
 
 import Testing
-@testable import CleverVpnFramework
+@testable import CleverVpnKit
 
-struct CleverVpnFrameworkTests {
+struct CleverVpnKitTests {
 
     @Test func example() async throws {
         // Write your test here and use APIs like `#expect(...)` to check expected conditions.
@@ -17,7 +17,6 @@ struct CleverVpnFrameworkTests {
         let factorial = algorithms.factorial(n: 10)
         #expect(fibonacci == 89)
         #expect(factorial == 3628800)
-        
     }
 
 }

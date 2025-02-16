@@ -1,0 +1,24 @@
+{
+  "originHash" : "bd6661cef7278a8235a1b1280ea96c50a0a97ceec88738cfe49b1f5c9c9b8ec6",
+  "pins" : [
+    {
+      "identity" : "codescanner",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/twostraws/CodeScanner.git",
+      "state" : {
+        "revision" : "5e886430238944c7200fc9e10dbf2d9550dba865",
+        "version" : "2.5.2"
+      }
+    },
+    {
+      "identity" : "flagkit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/madebybowtie/FlagKit.git",
+      "state" : {
+        "revision" : "f12111d91902d23fd1d9cc7ad9198030b049795d",
+        "version" : "2.4.0"
+      }
+    }
+  ],
+  "version" : 3
+}

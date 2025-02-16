@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>LSMultipleInstancesProhibited</key>
+	<true/>
+	<key>com.clever_vpn_kit.app_group_id</key>
+	<string>${APP_GROUP_ID}</string>
+	<key>com.clever_vpn_kit.keychain_group_id</key>
+	<string>${DEVELOPMENT_TEAM}.group.${APP_ID}</string>
+</dict>
+</plist>

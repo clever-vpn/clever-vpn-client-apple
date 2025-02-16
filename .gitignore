@@ -42,7 +42,7 @@ fastlane/report.xml
 fastlane/screenshots
 fastlane/test_output
 Preview.html
-output
+DistributeTools/output
 
 # Wireguard specific
 Sources/WireGuardApp/Config/Developer.xcconfig

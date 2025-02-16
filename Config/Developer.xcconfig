@@ -1,5 +1,6 @@
 // You Apple developer account's Team ID.
 DEVELOPMENT_TEAM =  MK7X98FMYX
+APP_ID= com.clevervpn.app
 
 
 // Absolute Path to the directory that Xcode creates in:
