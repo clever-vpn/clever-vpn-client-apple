@@ -1,3 +1,0 @@
-[submodule "wireguard-apple"]
-	path = wireguard-apple
-	url = https://github.com/clever-vpn/wireguard-apple-ex.git

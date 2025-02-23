@@ -2,6 +2,9 @@
 DEVELOPMENT_TEAM =  MK7X98FMYX
 APP_ID= com.clevervpn.app
 
+// for app_id of dmg distribution
+APP_ID_MACOSEX = com.clevervpn.appex
+
 
 // Absolute Path to the directory that Xcode creates in:
 //  ~/Library/Developer/Xcode/DerivedData/UpVPN-<random>/SourcePackages

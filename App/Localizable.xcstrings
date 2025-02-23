@@ -1,0 +1,109 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "" : {
+
+    },
+    "(%@)" : {
+
+    },
+    "%@:  %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@:  %2$@"
+          }
+        }
+      }
+    },
+    "About us" : {
+
+    },
+    "Activate" : {
+
+    },
+    "Activate Key" : {
+
+    },
+    "Activative Key" : {
+
+    },
+    "Agree to associate device data to your account" : {
+
+    },
+    "Are you sure?" : {
+
+    },
+    "Auto Select Adress" : {
+
+    },
+    "Cancel" : {
+
+    },
+    "Clever VPN" : {
+
+    },
+    "Clever VPN Error" : {
+
+    },
+    "Close" : {
+
+    },
+    "DeActivate" : {
+
+    },
+    "DeActivated" : {
+
+    },
+    "Export Result" : {
+
+    },
+    "Fast Modern VPN" : {
+
+    },
+    "For the app to work with the Clever VPN service and in-app purchases, the following device data is associated with your account:\n\n- Unique random device ID\n- Device name or hostname\n- OS version and type\n- CPU architecture\n- Activate Key\n\n**Clever VPN values your privacy**. You can sign out from the device and delete your data from the UpVPN dashboard at any time." : {
+
+    },
+    "Home" : {
+
+    },
+    "Launch at Login" : {
+
+    },
+    "Log View" : {
+
+    },
+    "Logs" : {
+
+    },
+    "OK" : {
+
+    },
+    "Protocol Type" : {
+
+    },
+    "Quit App" : {
+
+    },
+    "Refresh" : {
+
+    },
+    "Save" : {
+
+    },
+    "Setting" : {
+
+    },
+    "Settings" : {
+
+    },
+    "Version" : {
+
+    },
+    "Waiting" : {
+
+    }
+  },
+  "version" : "1.0"
+}
