@@ -45,10 +45,12 @@ struct LogView: View {
 
     var body: some View {
         ScrollViewReader { proxy in
+            
             ScrollView {
                 VStack(alignment: .leading) {
                     ForEach(logModel.logItems, id: \.hashValue) { log in
                         Text("\(log.timestamp):  \(log.message)")
+                            
                     }
                 }.padding(.horizontal, 20)
             }

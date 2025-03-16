@@ -14,18 +14,15 @@ public class CleverVpnLogs: ObservableObject {
     @Published var logItems: [LogEntry] = []
     private var task: Task<Void, Never>? = nil
     
-    
-    private func appendLog(_ log: LogEntry) {
-        logItems.append(log)
-    }
-    
     func startLog() {
-        task = Task {
+        task = Task.detached { [weak self] in
             let logNotification = VpnClient.shared.getlogNotification()
               do {
                   for try await logs in logNotification {
                       for log in logs {
-                              appendLog(log)
+                          await MainActor.run { [weak self] in
+                              self?.logItems.append(log)
+                          }
                       }
                       try? await Task.sleep(nanoseconds: 1_000_000_000)
                   }
@@ -39,7 +36,6 @@ public class CleverVpnLogs: ObservableObject {
     
     func stopLog() {
         task?.cancel()
-        logItems.removeAll()
     }
 }
 

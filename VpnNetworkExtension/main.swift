@@ -5,10 +5,12 @@ import Foundation
 import NetworkExtension
 import CleverVpnKit
 
-CleverVpnPacketTunnelProvider.isSystemExtensionMode = true
+CleverVpnKitConfig.setSystemEx()
+//CleverVpnPacketTunnelProvider.isSystemExtensionMode = true
 
 autoreleasepool {
     NEProvider.startSystemExtensionMode()
+    IPCCleverVpnKit.startService()
 }
 
 dispatchMain()

@@ -8,5 +8,10 @@
 	<string>${APP_GROUP_ID}</string>
 	<key>com.clever_vpn_kit.keychain_group_id</key>
 	<string>${APP_GROUP_ID}</string>
+	<key>NetworkExtension</key>
+	<dict>
+		<key>NEMachServiceName</key>
+		<string>${APP_GROUP_ID}.service</string>
+	</dict>
 </dict>
 </plist>

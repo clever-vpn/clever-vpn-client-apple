@@ -14,6 +14,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         // Insert code here to initialize your application
         #if SYSTEMEX
             installSE()
+            CleverVpnKitConfig.setSystemEx()
         #endif
     }
 }

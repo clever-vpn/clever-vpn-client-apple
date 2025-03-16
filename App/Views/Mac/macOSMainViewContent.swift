@@ -16,7 +16,7 @@ struct MainViewContent12: View {
         StackNavigationView {
             Text("Home").toolbar {
                 StackNavigationLink(destination: SettingsView()) {
-                    Label("Setting", systemImage: "gear")
+                    Label("Settings", systemImage: "gear")
                 }.help("Settings")
             }
             
@@ -33,7 +33,7 @@ struct MainViewContent13: View {
                 HomeView()
             }.toolbar {
                 NavigationLink(destination: SettingsView()) {
-                    Label("Setting", systemImage: "gearshape")
+                    Label("Settings", systemImage: "gearshape")
                 }.help("Settings")
             }
         }

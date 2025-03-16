@@ -19,9 +19,9 @@ For the app to work with the Clever VPN service and in-app purchases, the follow
 - Device name or hostname
 - OS version and type
 - CPU architecture
-- Activate Key
+- Activation Key
 
-**Clever VPN values your privacy**. You can sign out from the device and delete your data from the UpVPN dashboard at any time.
+**Clever VPN values your privacy**. You can sign out from the device and delete your data by deactivating at any time.
 """)
             .padding()
             .frame(minWidth: 300,  maxWidth: 500, minHeight: 300, maxHeight: .infinity)

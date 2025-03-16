@@ -18,88 +18,219 @@
       }
     },
     "About us" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "关于我们"
+          }
+        }
+      }
     },
     "Activate" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "激活"
+          }
+        }
+      }
     },
-    "Activate Key" : {
-
-    },
-    "Activative Key" : {
+    "Activation Key" : {
 
     },
     "Agree to associate device data to your account" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "同意将设备的某些信息关联到您的账户"
+          }
+        }
+      }
     },
     "Are you sure?" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "您同意吗？"
+          }
+        }
+      }
     },
     "Auto Select Adress" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "自动选择地点"
+          }
+        }
+      }
     },
     "Cancel" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "取消"
+          }
+        }
+      }
     },
     "Clever VPN" : {
 
     },
     "Clever VPN Error" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clever VPN 错误"
+          }
+        }
+      }
     },
     "Close" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "关闭"
+          }
+        }
+      }
     },
     "DeActivate" : {
-
-    },
-    "DeActivated" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "撤销激活"
+          }
+        }
+      }
     },
     "Export Result" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "导出"
+          }
+        }
+      }
     },
     "Fast Modern VPN" : {
 
     },
-    "For the app to work with the Clever VPN service and in-app purchases, the following device data is associated with your account:\n\n- Unique random device ID\n- Device name or hostname\n- OS version and type\n- CPU architecture\n- Activate Key\n\n**Clever VPN values your privacy**. You can sign out from the device and delete your data from the UpVPN dashboard at any time." : {
+    "For the app to work with the Clever VPN service and in-app purchases, the following device data is associated with your account:\n\n- Unique random device ID\n- Device name or hostname\n- OS version and type\n- CPU architecture\n- Activation Key\n\n**Clever VPN values your privacy**. You can sign out from the device and delete your data by deactivating at any time." : {
 
     },
     "Home" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "主页"
+          }
+        }
+      }
     },
     "Launch at Login" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "登陆时启动"
+          }
+        }
+      }
     },
     "Log View" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "浏览日志"
+          }
+        }
+      }
     },
     "Logs" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "日志"
+          }
+        }
+      }
     },
     "OK" : {
 
     },
     "Protocol Type" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "协议类型"
+          }
+        }
+      }
     },
     "Quit App" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "退出应用"
+          }
+        }
+      }
     },
     "Refresh" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "刷新"
+          }
+        }
+      }
     },
     "Save" : {
-
-    },
-    "Setting" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "保存"
+          }
+        }
+      }
     },
     "Settings" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "设置"
+          }
+        }
+      }
     },
     "Version" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "版本"
+          }
+        }
+      }
     },
     "Waiting" : {
 

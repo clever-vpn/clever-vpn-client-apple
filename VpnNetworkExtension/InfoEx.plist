@@ -4,6 +4,8 @@
 <dict>
 	<key>NetworkExtension</key>
 	<dict>
+		<key>NEMachServiceName</key>
+		<string>${APP_GROUP_ID}.service</string>
 		<key>NEProviderClasses</key>
 		<dict>
 			<key>com.apple.networkextension.packet-tunnel</key>

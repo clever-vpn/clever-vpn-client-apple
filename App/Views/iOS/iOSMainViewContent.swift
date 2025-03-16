@@ -19,7 +19,7 @@ struct MainViewContent : View {
                     HomeView()
                 }.toolbar {
                     NavigationLink(destination: SettingsView()) {
-                        Label("Setting", systemImage: "gearshape")
+                        Label("Settings", systemImage: "gearshape")
                     }.help("Settings")
                 }
             }
@@ -29,7 +29,7 @@ struct MainViewContent : View {
                     HomeView()
                 }.toolbar {
                     NavigationLink(destination: SettingsView()) {
-                        Label("Setting", systemImage: "gearshape")
+                        Label("Settings", systemImage: "gearshape")
                     }.help("Settings")
                 }
                 

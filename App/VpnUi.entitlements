@@ -20,5 +20,9 @@
 	<array>
 		<string>${DEVELOPMENT_TEAM}.group.${APP_ID}</string>
 	</array>
+	<key>com.apple.security.temporary-exception.mach-lookup.global-name</key>
+	<array>
+		<string>${APP_GROUP_ID}.service</string>
+	</array>
 </dict>
 </plist>

@@ -17,7 +17,7 @@ extension ProtocolType {
         case .kudp:
             return "for high packet loss"
         case .tcp:
-            return "UDP not available"
+            return "for UDP not available"
         case .auto:
             return "auto Select Protocol (default)"
         @unknown default:
@@ -31,11 +31,11 @@ extension ProtocolType {
 
 struct SettingsView: View {
     @EnvironmentObject var vpnModel: CleverVpnModel
-    @State private var selectedProtocol: ProtocolType = .auto
+    @State var selectedProtocol: ProtocolType = .auto
     
     var body: some View {
         Form {
-            Section("Activative Key") {
+            Section("Activation Key") {
 
                 SignOutView()
 //                AccountView()
@@ -59,21 +59,25 @@ struct SettingsView: View {
                             .font(.subheadline)
                         Spacer()
 
-                        if option == selectedProtocol {
+                        if option == self.selectedProtocol {
                             Image(systemName: "checkmark")
                                 .foregroundColor(.blue)
                         }
                     }
                     .contentShape(Rectangle())
                     .onTapGesture {
-                        selectedProtocol = option
+                        self.selectedProtocol = option
                         vpnModel.setProtocolType(protocolType: option)
                     }
-                }.onAppear {
-                    selectedProtocol = vpnModel.userInfo?.protocolType ?? .auto
                 }
-                
+            }.onAppear {
+                if let protocolType = vpnModel.userInfo?.protocolType {
+                    Task { @MainActor in
+                        self.selectedProtocol = protocolType
+                    }
+                }
             }
+
             
             #if os(macOS)
             if #available(macOS 13, *)

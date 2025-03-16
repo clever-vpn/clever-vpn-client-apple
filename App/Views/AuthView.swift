@@ -37,7 +37,7 @@ struct AuthView: View {
                 
                 VStack(spacing: 20) {
                     HStack {
-                    TextField("Activate Key", text: $authKey)
+                    TextField("Activation Key", text: $authKey)
                         .padding(12)
                         .textFieldStyle(PlainTextFieldStyle())
                         .background(RoundedRectangle(cornerRadius: 9)

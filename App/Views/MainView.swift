@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CleverVpnKit
 
 import SwiftUI
 
@@ -14,7 +15,11 @@ struct MainView: View {
     var body: some View {
         MainViewContent()
         .navigationTitle("Clever VPN")
+//        .onReceive(NotificationCenter.default.publisher(for: NSApplication.willResignActiveNotification)) { _ in
+//            VpnClient.shared.stop()
+//        }
     }
+    
 }
 
 #Preview {
