@@ -5,60 +5,38 @@
 //  Created by bolin wu on 2025/1/3.
 //
 
-import Foundation
-import Combine
 import CleverVpnKit
+import Combine
+import Foundation
 
 @MainActor
 public class CleverVpnLogs: ObservableObject {
     @Published var logItems: [LogEntry] = []
-    private var task: Task<Void, Never>? = nil
-    
+    private var task: Task<Void, any Error>? = nil
+
     func startLog() {
         task = Task.detached { [weak self] in
-            let logNotification = VpnClient.shared.getlogNotification()
-              do {
-                  for try await logs in logNotification {
-                      for log in logs {
-                          await MainActor.run { [weak self] in
-                              self?.logItems.append(log)
-                          }
-                      }
-                      try? await Task.sleep(nanoseconds: 1_000_000_000)
-                  }
-                  
-              } catch {
-                  print("Error receiving logs: \(error)")
-              }
-          }
-
+            let logNotification = VpnApi.getlogNotification()
+            for try await logs in logNotification {
+                try Task.checkCancellation()
+                for log in logs {
+                    await self?.updateLog(log)
+                }
+                try await Task.sleep(nanoseconds: 1_000_000_000)
+            }
+        }
     }
-    
+
     func stopLog() {
         task?.cancel()
+        task = nil
+    }
+
+    private func updateLog(_ log: LogEntry) {
+        let length = logItems.count - 500
+        if length > 0 {
+            self.logItems.removeFirst(length)
+        }
+        self.logItems.append(log)
     }
 }
-
-//public class CleverVpnLogs: ObservableObject {
-//    @Published var logItems: [LogEntry] = []
-//    private var cancellable: AnyCancellable?
-//    
-//    deinit {
-//        cancellable?.cancel()
-//    }
-//    
-//    private func appendLog(_ log: LogEntry) {
-//        logItems.append(log)
-//    }
-//    
-//    func startLog() {
-//        cancellable = VpnClient.shared.logSubscriber.sink { [weak self] log in
-//            self?.appendLog(log)
-//        }
-//    }
-//    
-//    func stopLog() {
-//        cancellable?.cancel()
-//        logItems.removeAll()
-//    }
-//}

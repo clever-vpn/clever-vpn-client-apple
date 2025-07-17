@@ -16,7 +16,7 @@ struct MainView: View {
         MainViewContent()
         .navigationTitle("Clever VPN")
 //        .onReceive(NotificationCenter.default.publisher(for: NSApplication.willResignActiveNotification)) { _ in
-//            VpnClient.shared.stop()
+//            VpnApi.stop()
 //        }
     }
     

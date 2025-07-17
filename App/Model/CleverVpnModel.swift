@@ -7,6 +7,7 @@
 
 import CleverVpnKit
 import Foundation
+import OSLog
 
 enum ActivateStatus {
     case activate
@@ -26,12 +27,8 @@ public class CleverVpnModel: ObservableObject {
     @Published var locations: [Location] = []
     @Published var userInfo: UserInfo? = nil
 
-    private var statusTask: Task<Void, Never>?
-    private var trafficTask: Task<Void, Never>?
-
-    private var starting: Bool = false
-
-    private var logTask: Task<Void, Error>? = nil
+    private var statusTask: Task<Void, any Error>?
+    private var trafficTask: Task<Void, any Error>?
 
     var location: Location? {
         if let id = userInfo?.locationId {
@@ -43,14 +40,14 @@ public class CleverVpnModel: ObservableObject {
 
     public func loadUserInfo() {
         Task {
-            if let userInfo0 = await VpnClient.shared.getUserInfo() {
+            if let userInfo0 = await VpnApi.getUserInfo() {
                 userInfo = userInfo0
             }
         }
     }
     public func loadLocations(fromApi: Bool = false) {
         Task {
-            if let locations0 = await VpnClient.shared.getLocations(fromApi: fromApi) {
+            if let locations0 = await VpnApi.getLocations(fromApi: fromApi) {
                 locations = locations0
             }
         }
@@ -66,36 +63,36 @@ public class CleverVpnModel: ObservableObject {
         loadUserInfo()
 
         Task {
-            let activateStatus0 = await VpnClient.shared.getActivateStatus()
-            if activateStatus0 {
+            let ok = await VpnApi.getActivateStatus()
+            if ok {
                 activateStatus = .activate
             } else {
                 activateStatus = .notActivate
             }
         }
 
-        statusTask = Task {
-            for await status in VpnClient.shared.getVpnStatusNotification() {
-                vpnStatus = status
-                switch status {
-                case .connected:
-                    startTime = Date.now
-                case .disconnected:
-                    lastError = await VpnClient.shared.getLastError()
-                default:
-                    break
+        statusTask = Task.detached { [weak self] in
+            for await status in VpnApi.getVpnStatusNotification() {
+                try Task.checkCancellation()
+                var _lastError: CleverVpnError? = nil
+                if status == .disconnected {
+                    _lastError = await VpnApi.getLastError()
                 }
-
+                await self?.updateVpnStatus(status, _lastError)
             }
         }
 
-        trafficTask = Task {
-            while true {
-                if let traffic0 = await VpnClient.shared.getTraffic() {
-                    traffic = traffic0
-                }
-                try? await Task.sleep(nanoseconds: 1_000_000_000)
-            }
+    }
+
+    private func updateVpnStatus(_ status: VpnStatus, _ error: CleverVpnError?) {
+        vpnStatus = status
+        switch status {
+        case .connected:
+            startTime = Date.now
+        case .disconnected:
+            lastError = error
+        default:
+            break
         }
     }
 
@@ -106,14 +103,14 @@ public class CleverVpnModel: ObservableObject {
 
     func setLocation(selectedLocation: Location?) {
         Task {
-            await VpnClient.shared.updateLocation(location: selectedLocation)
+            await VpnApi.updateLocation(location: selectedLocation)
             loadUserInfo()
         }
     }
 
     func setProtocolType(protocolType: ProtocolType) {
         Task {
-            await VpnClient.shared.updateProtocolType(protocolType: protocolType)
+            await VpnApi.updateProtocolType(protocolType: protocolType)
             loadUserInfo()
         }
     }
@@ -124,28 +121,30 @@ public class CleverVpnModel: ObservableObject {
             lastError = CleverVpnError.noKey
         } else {
             Task {
-                if let error0 = await VpnClient.shared.activate(key: key) {
-                    lastError = error0
-                } else {
+                lastError = await
+                    (Task.detached {
+                        return await VpnApi.activate(key: key)
+                    }).value
+
+                if lastError == nil {
                     activateStatus = .activate
                     refresh()
-
                 }
             }
-        }
 
+        }
     }
 
     func deActivate() {
         Task {
             activateStatus = .waiting
-            await VpnClient.shared.deActivate()
+            await VpnApi.deActivate()
             activateStatus = .notActivate
         }
     }
 
     func refreshVpnStatus() {
-        if let status = VpnClient.shared.getVpnStatus() {
+        if let status = VpnApi.getVpnStatus() {
             vpnStatus = status
         }
     }
@@ -153,46 +152,40 @@ public class CleverVpnModel: ObservableObject {
     func turnOn(_ on: Bool) {
         if on {
             Task {
-                if !starting {
-                    starting = true
-
+                if vpnStatus.isDisconnected() {
                     do {
                         traffic = Traffic(tx: 0, rx: 0)
-                        try await VpnClient.shared.start()
-
+                        try await VpnApi.start()
+                        startTrafficTask()
                     } catch {
                         message = "Failed to start VPN: \(error)"
                     }
-
-                    starting = false
-
                 }
             }
         } else {
-            VpnClient.shared.stop()
+            VpnApi.stop()
+            stopTrafficTask()
+        }
+    }
+    private func startTrafficTask() {
+        stopTrafficTask()
+        trafficTask = Task.detached { [weak self] in
+            while true {
+                try Task.checkCancellation()
+                let traffic0 = await VpnApi.getTraffic() ?? Traffic(tx: 0, rx: 0)
+                await self?.updateTraffic(traffic0)
+                try await Task.sleep(nanoseconds: 1_000_000_000)
+            }
         }
     }
 
-}
+    private func updateTraffic(_ traffic0: Traffic) {
+        traffic = traffic0
+    }
 
-//func load<T: Decodable>(_ filename: String) -> T {
-//    let data: Data
-//
-//    guard let file = Bundle.main.url(forResource: filename, withExtension: nil)
-//        else {
-//            fatalError("Couldn't find \(filename) in main bundle.")
-//    }
-//
-//    do {
-//        data = try Data(contentsOf: file)
-//    } catch {
-//        fatalError("Couldn't load \(filename) from main bundle:\n\(error)")
-//    }
-//
-//    do {
-//        let decoder = JSONDecoder()
-//        return try decoder.decode(T.self, from: data)
-//    } catch {
-//        fatalError("Couldn't parse \(filename) as \(T.self):\n\(error)")
-//    }
-//}
+    private func stopTrafficTask() {
+        trafficTask?.cancel()
+        trafficTask = nil
+    }
+
+}
