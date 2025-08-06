@@ -9,7 +9,6 @@
 build/
 DerivedData
 MakeDmgTool/output
-Config/Developer.xcconfig
 
 ## Various settings
 *.pbxuser
@@ -46,8 +45,8 @@ fastlane/test_output
 Preview.html
 DistributeTools/output
 
-# Wireguard specific
-Sources/WireGuardApp/Config/Developer.xcconfig
+# config specific
+Config/Developer.xcconfig
 
 # Vim
 .*.sw*
