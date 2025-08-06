@@ -1,0 +1,12 @@
+// You Apple developer account's Team ID.
+DEVELOPMENT_TEAM =  <team_id>
+
+// The bundle identifier of the apps for ios/macos.
+// Should be an app id created at developer.apple.com
+// with Network Extensions capabilty.
+APP_ID = <app_id>
+
+// The bundle identifier of the apps for mac to direct distribution
+APP_ID_MACOSEX = <appex_id>
+
+//when modified, change name of file to Developer.xcconfig

@@ -35,7 +35,7 @@ struct SettingsView: View {
     
     var body: some View {
         Form {
-            Section("Activation Key") {
+            Section("User ID") {
 
                 SignOutView()
 //                AccountView()
@@ -107,7 +107,7 @@ struct SettingsView: View {
 //                }
                 
 
-                    Text("(\(appVersion + appBuild))")
+                    Text("(\(appVersion)-\(appBuild))")
                            }
 
 //            SignOutView()
@@ -122,7 +122,7 @@ struct SettingsView: View {
 //            Button(action: {
 //                vpnModel.deActivate()
 //            }) {
-//                Text("DeActivate")
+//                Text("Logout")
 //            }
 //
 ////            Button(action: {
@@ -132,7 +132,7 @@ struct SettingsView: View {
 ////            }
 //            
 //            NavigationLinkEx(destination: AuthView()) {
-//                Text("Activate")
+//                Text("Login")
 //            }
 //            
 //            if #available(macOS 14, *) {

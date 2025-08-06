@@ -4,8 +4,15 @@
     "" : {
 
     },
-    "(%@)" : {
-
+    "(%@-%@)" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "(%1$@-%2$@)"
+          }
+        }
+      }
     },
     "%@:  %@" : {
       "localizations" : {
@@ -26,19 +33,6 @@
           }
         }
       }
-    },
-    "Activate" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "激活"
-          }
-        }
-      }
-    },
-    "Activation Key" : {
-
     },
     "Agree to associate device data to your account" : {
       "localizations" : {
@@ -103,16 +97,6 @@
         }
       }
     },
-    "DeActivate" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "撤销激活"
-          }
-        }
-      }
-    },
     "Export Result" : {
       "localizations" : {
         "zh-Hans" : {
@@ -126,7 +110,7 @@
     "Fast Modern VPN" : {
 
     },
-    "For the app to work with the Clever VPN service and in-app purchases, the following device data is associated with your account:\n\n- Unique random device ID\n- Device name or hostname\n- OS version and type\n- CPU architecture\n- Activation Key\n\n**Clever VPN values your privacy**. You can sign out from the device and delete your data by deactivating at any time." : {
+    "For the app to work with the Clever VPN service and in-app purchases, the following device data is associated with your account:\n\n- Unique random device ID\n- Device name or hostname\n- OS version and type\n- CPU architecture\n- User ID\n\n**Clever VPN values your privacy**. You can sign out from the device and delete your data by deactivating at any time." : {
 
     },
     "Home" : {
@@ -155,6 +139,26 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "浏览日志"
+          }
+        }
+      }
+    },
+    "Login" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "登陆"
+          }
+        }
+      }
+    },
+    "Logout" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "登出"
           }
         }
       }
@@ -222,6 +226,9 @@
         }
       }
     },
+    "User ID" : {
+
+    },
     "Version" : {
       "localizations" : {
         "zh-Hans" : {
@@ -233,7 +240,14 @@
       }
     },
     "Waiting" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "等待"
+          }
+        }
+      }
     }
   },
   "version" : "1.0"

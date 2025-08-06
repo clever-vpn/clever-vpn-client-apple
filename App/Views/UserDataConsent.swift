@@ -19,7 +19,7 @@ For the app to work with the Clever VPN service and in-app purchases, the follow
 - Device name or hostname
 - OS version and type
 - CPU architecture
-- Activation Key
+- User ID
 
 **Clever VPN values your privacy**. You can sign out from the device and delete your data by deactivating at any time.
 """)

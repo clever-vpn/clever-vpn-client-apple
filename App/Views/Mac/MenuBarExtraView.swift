@@ -147,7 +147,7 @@ import SwiftUI
                                 openWindow(id: "main")
                                 dismiss()
                             } label: {
-                                Text("Activate")
+                                Text("Login")
                                     .font(.headline)
                                     .frame(maxWidth: .infinity)
                                     .padding(.vertical, 5)

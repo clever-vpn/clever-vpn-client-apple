@@ -36,8 +36,31 @@ struct HomeCardDivider: View {
             }
             
         default:
-            Divider()
-                .padding(.horizontal, 30)
+//            Divider()
+//                .padding(.horizontal, 30)
+            HStack {
+                // embeded in vstack because divider in hstack becomes vertical
+                VStack {
+                    Divider()
+                        .padding(.leading, 30)
+                        .padding(.trailing, 10)
+                }.frame(maxWidth: .infinity)
+                Text(vpnModel.vpnStatus.displayText())
+                    .font(.headline)
+                    .padding(.bottom, 2).padding(.top, 2)
+                    .padding(.trailing, 10)
+                    .padding(.leading, 10)
+                    .layoutPriority(1)
+                    .fixedSize()
+                    .background(
+                        Capsule().stroke()
+                    )
+                VStack {
+                    Divider()
+                        .padding(.leading, 10)
+                        .padding(.trailing, 30)
+                }.frame(maxWidth: .infinity)
+            }
 
         }
     }

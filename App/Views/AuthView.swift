@@ -37,7 +37,7 @@ struct AuthView: View {
                 
                 VStack(spacing: 20) {
                     HStack {
-                    TextField("Activation Key", text: $authKey)
+                    TextField("User ID", text: $authKey)
                         .padding(12)
                         .textFieldStyle(PlainTextFieldStyle())
                         .background(RoundedRectangle(cornerRadius: 9)
@@ -91,12 +91,12 @@ struct AuthView: View {
                                     .frame(maxWidth: .infinity)
                             } else {
                                 // on macOS 12 progress view spinner goes out of button boundary
-                                Text("Activate")
+                                Text("Login")
                                     .padding(.vertical, 5)
                                     .frame(maxWidth: .infinity)
                             }
                         } else {
-                            Text("Activate")
+                            Text("Login")
                                 .padding(.vertical, 5)
                                 .frame(maxWidth: .infinity)
                         }
@@ -140,7 +140,7 @@ struct AuthView: View {
                 }
             }
         }
-        .navigationTitle("Activate")
+        .navigationTitle("Login")
 #if os(macOS)
         .frame(maxWidth: 400).padding(.vertical, 120)
 #endif

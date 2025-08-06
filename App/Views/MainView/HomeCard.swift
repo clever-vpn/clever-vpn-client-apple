@@ -38,20 +38,20 @@ struct HomeCard: View {
                     .frame(minWidth: 50, maxWidth: 100,  minHeight: 50, maxHeight: 100)
                     .font(.headline.weight(.light))
 
-                if !vpnModel.vpnStatus.isConnected() {
-                    Text(vpnModel.vpnStatus.displayText())
-                        .font(.headline)
-                        .padding(.bottom, 2).padding(.top, 2)
-                        .padding(.trailing, 10)
-                        .padding(.leading, 10)
-                        .background(
-                            Capsule().stroke()
-                        )
-                }
+//                if !vpnModel.vpnStatus.isConnected() {
+//                    Text(vpnModel.vpnStatus.displayText())
+//                        .font(.headline)
+//                        .padding(.bottom, 2).padding(.top, 2)
+//                        .padding(.trailing, 10)
+//                        .padding(.leading, 10)
+//                        .background(
+//                            Capsule().stroke()
+//                        )
+//                }
             }
 
             HomeCardDivider()
-                .padding(.vertical)
+                .padding(.vertical).frame(height: 80)
 
             VStack(spacing: 15) {
                 HomeCardLocation()

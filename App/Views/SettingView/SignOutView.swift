@@ -23,13 +23,13 @@ struct SignOutView: View {
         Button {
             isConfirming = true
         } label: {
-            Text("DeActivate")
+            Text("Logout")
         }
         .confirmationDialog("Are you sure?", isPresented: $isConfirming) {
             Button {
                 vpnModel.deActivate()
             } label: {
-                Text("DeActivate")
+                Text("Logout")
             }
 
             Button("Cancel", role: .cancel) {

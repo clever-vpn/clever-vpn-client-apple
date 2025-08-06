@@ -8,6 +8,8 @@
 ## Build generated
 build/
 DerivedData
+MakeDmgTool/output
+Config/Developer.xcconfig
 
 ## Various settings
 *.pbxuser

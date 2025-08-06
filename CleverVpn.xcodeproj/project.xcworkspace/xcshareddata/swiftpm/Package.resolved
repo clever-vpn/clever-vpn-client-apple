@@ -1,6 +1,15 @@
 {
-  "originHash" : "bd6661cef7278a8235a1b1280ea96c50a0a97ceec88738cfe49b1f5c9c9b8ec6",
+  "originHash" : "90912e9a23d2b4ee8c7541b7ff4d35772cbe9cded1a67d804d87a5959050bdde",
   "pins" : [
+    {
+      "identity" : "clever-vpn-kit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/clever-vpn/clever-vpn-kit",
+      "state" : {
+        "revision" : "3b95a777652bd462f143b02ce58f0aadcb0a974c",
+        "version" : "1.0.0"
+      }
+    },
     {
       "identity" : "codescanner",
       "kind" : "remoteSourceControl",
