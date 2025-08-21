@@ -6,8 +6,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/clever-vpn/clever-vpn-kit",
       "state" : {
-        "revision" : "3b95a777652bd462f143b02ce58f0aadcb0a974c",
-        "version" : "1.0.0"
+        "revision" : "a311fb90e839b25f6c07a766ca2938da294ba4b7",
+        "version" : "1.0.1"
       }
     },
     {
