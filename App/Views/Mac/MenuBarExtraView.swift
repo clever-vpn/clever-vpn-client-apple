@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import CleverVpnKit
 
 #if os(macOS)
 
@@ -17,7 +18,8 @@ import SwiftUI
         @State private var isHoveredMenu = false
         @State private var isHoveredQuit = false
 
-        @EnvironmentObject private var vpnModel: CleverVpnModel
+//        @EnvironmentObject private var vpnModel: CleverVpnModel
+        @EnvironmentObject var cleverVPNModel: VPNClient
 
         @Environment(\.openWindow) var openWindow
         @Environment(\.dismiss) private var dismiss
@@ -25,7 +27,7 @@ import SwiftUI
         var body: some View {
             VStack(spacing: 10) {
                 VStack {
-                    switch vpnModel.activateStatus {
+                    switch cleverVPNModel.activateStatus {
                     case .activate:
                         HStack {
                             Spacer()

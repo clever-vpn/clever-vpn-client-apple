@@ -13,9 +13,13 @@ struct VpnUiApp: App {
     #if os(macOS)
     @NSApplicationDelegateAdaptor var appDelegate: AppDelegate
     #endif
+    @Environment(\.scenePhase) private var scenePhase
 
-    @StateObject private var vpnModel = CleverVpnModel()
-    @StateObject private var logModel = CleverVpnLogs()
+//    @StateObject private var vpnModel = CleverVpnModel()
+//    @StateObject private var logModel = CleverVpnLogs()
+    @StateObject private var cleverVPNModel = vpnClient
+    @StateObject private var cleverVPNLogModel = logModel
+    @StateObject private var cleverVPNTrafficModel = trafficModel
     @State private var currentImageIndex = 0
     private let timer = Timer.publish(every: 0.3, on: .main, in: .common).autoconnect()
     private let images = ["StatusBarIconDot1", "StatusBarIconDot2", "StatusBarIconDot3"]
@@ -30,10 +34,13 @@ struct VpnUiApp: App {
                         // to load new locations and/or estimates
 //                        locationViewModel.reload()
                     }
-                    .environmentObject(vpnModel)
-                    .environmentObject(logModel)
+//                    .environmentObject(vpnModel)
+//                    .environmentObject(logModel)
+                    .environmentObject(cleverVPNModel)
+                    .environmentObject(cleverVPNLogModel)
+                    .environmentObject(cleverVPNTrafficModel)
             } label: {
-                switch vpnModel.vpnStatus {
+                switch cleverVPNModel.status {
                 case .connecting:
                     Image(images[currentImageIndex])
                         .onReceive(timer) { _ in
@@ -55,7 +62,19 @@ struct VpnUiApp: App {
     
     private func getContentView() -> some View {
         return ContentView()
-            .environmentObject(vpnModel).environmentObject(logModel)
+//            .environmentObject(vpnModel)
+//            .environmentObject(logModel)
+            .environmentObject(cleverVPNModel)
+            .environmentObject(cleverVPNLogModel)
+            .environmentObject(cleverVPNTrafficModel)
+            .onAppear {
+                cleverVPNTrafficModel.setAppGateOpen(scenePhase == .active)
+                cleverVPNLogModel.setAppGateOpen(scenePhase == .active)
+            }
+            .onChange(of: scenePhase) { phase in
+                cleverVPNTrafficModel.setAppGateOpen(phase == .active)
+                cleverVPNLogModel.setAppGateOpen(phase == .active)
+            }
             #if os(macOS)
             .frame(minHeight: 650)
             #endif

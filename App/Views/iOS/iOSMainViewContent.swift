@@ -7,11 +7,12 @@
 
 import Foundation
 import SwiftUI
+import CleverVpnKit
 
 #if os(iOS)
 struct MainViewContent : View {
-    @EnvironmentObject var vpnModel: CleverVpnModel
-    
+//    @EnvironmentObject var vpnModel: CleverVpnModel
+
     var body: some View {
         if #available(iOS 16.0, *) {
             NavigationStack {

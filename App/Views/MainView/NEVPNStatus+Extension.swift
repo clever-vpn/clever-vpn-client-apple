@@ -6,13 +6,12 @@
 //
 
 import Foundation
+import NetworkExtension
 import CleverVpnKit
 
-extension VpnStatus {
+extension NEVPNStatus {
     func displayText() -> String {
         switch self {
-        case .loading:
-            "Loading"
         case .disconnected:
             "VPN is off"
         case .connecting:
@@ -21,10 +20,10 @@ extension VpnStatus {
             "VPN is on"
         case .disconnecting:
             "Disconnecting"
-        case .reconnecting:
-            "Reconnecting"
         case .invalid:
             "Invalid"
+        case .reasserting:
+            "Reasserting"
         @unknown default:
             "Unknown"
         }
@@ -32,7 +31,7 @@ extension VpnStatus {
     
     func shouldToggleBeOn() -> Bool {
         return switch self {
-        case .disconnected, .disconnecting, .loading:
+        case .disconnected, .disconnecting, .invalid:
             false
         default:
             true
@@ -45,17 +44,11 @@ extension VpnStatus {
       }else {
           "shield.slash"
       }
-//        return switch self {
-//        case .connected:
-//            "checkmark.shield"
-//        default:
-//            "shield.slash"
-//        }
     }
     
     func isConnected() -> Bool {
         return switch self {
-        case .connected, .reconnecting:
+        case .connected:
             true
         default:
             false
@@ -71,7 +64,7 @@ extension VpnStatus {
     
     func isDisconnectedOrConnected() -> Bool {
         return switch self {
-        case .disconnected, .connected, .reconnecting:
+        case .disconnected, .connected:
             true
         default:
             false

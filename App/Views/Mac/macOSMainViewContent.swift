@@ -7,9 +7,10 @@
 
 import Foundation
 import SwiftUI
+import CleverVpnKit
 
 #if os(macOS)
-@available(macOS, introduced: 12, obsoleted: 13)
+@available(macOS, introduced: 12)
 struct MainViewContent12: View {
 
     var body: some View {
@@ -83,7 +84,12 @@ struct MainViewContent : View {
 //}
 
 #Preview {
-    MainViewContent().environmentObject(CleverVpnModel()).environmentObject(CleverVpnLogs())
+//    MainViewContent().environmentObject(CleverVpnModel()).environmentObject(CleverVpnLogs())
+
+    MainViewContent()
+        .environmentObject(vpnClient)
+        .environmentObject(logModel)
+        .environmentObject(trafficModel)
 }
 
 #endif

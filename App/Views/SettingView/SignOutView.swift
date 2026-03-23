@@ -7,17 +7,19 @@
 
 import Foundation
 import SwiftUI
+import CleverVpnKit
 
 struct SignOutView: View {
-    @EnvironmentObject var vpnModel: CleverVpnModel
+//    @EnvironmentObject var vpnModel: CleverVpnModel
+    @EnvironmentObject var cleverVPNModel: VPNClient
 
     @State private var isConfirming = false
 
     var body: some View {
         
 //        let key = vpnModel.userInfo?.key ?? "no key"
-        let key0 = groupDigits(vpnModel.userInfo?.key ?? "", len: 4)
-        let key = key0.isEmpty ? "no key" : key0    
+        let key0 = groupDigits(cleverVPNModel.userInfo?.key ?? "", len: 4)
+        let key = key0.isEmpty ? "no key" : key0
         
         Text(key)
         Button {
@@ -27,7 +29,7 @@ struct SignOutView: View {
         }
         .confirmationDialog("Are you sure?", isPresented: $isConfirming) {
             Button {
-                vpnModel.deActivate()
+                cleverVPNModel.deActivate()
             } label: {
                 Text("Logout")
             }
@@ -50,5 +52,5 @@ func groupDigits(_ s: String, len: Int) -> String {
 
 #Preview {
     SignOutView()
-        .environmentObject(CleverVpnModel())
+        .environmentObject(vpnClient)
 }

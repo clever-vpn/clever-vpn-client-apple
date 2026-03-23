@@ -2,6 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>AppGroupIdentifier</key>
+	<string>${APP_GROUP_ID}</string>
+	<key>BasePackageIdentifier</key>
+	<string>${APP_ID_MACOSEX}</string>
 	<key>LSMultipleInstancesProhibited</key>
 	<true/>
 	<key>NetworkExtension</key>
@@ -9,8 +13,6 @@
 		<key>NEMachServiceName</key>
 		<string>${APP_GROUP_ID}.service</string>
 	</dict>
-	<key>com.clever_vpn_kit.app_group_id</key>
-	<string>${APP_GROUP_ID}</string>
 	<key>com.clever_vpn_kit.keychain_group_id</key>
 	<string>${APP_GROUP_ID}</string>
 </dict>

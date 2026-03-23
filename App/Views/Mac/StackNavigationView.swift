@@ -47,7 +47,7 @@ extension View {
     }
 }
 
-@available(macOS, introduced: 12, obsoleted: 13)
+@available(macOS, introduced: 12)
 public struct StackNavigationView<Content: View>: View {
     
     private var content: Content
@@ -76,7 +76,7 @@ public struct StackNavigationView<Content: View>: View {
 //                    .keyboardShortcut("[", modifiers: .command)
 //                }
 //            }
-//                
+//
 //        }
 //        return view
         
@@ -105,7 +105,7 @@ public struct StackNavigationView<Content: View>: View {
     
 }
 
-@available(macOS, introduced: 12, obsoleted: 13)
+@available(macOS, introduced: 12)
 public struct StackNavigationLink<Label: View, Destination: View>: View {
 
     private var label: Label
@@ -182,4 +182,3 @@ extension NavigationLinkEx where Label == Text {
     }
 
 }
-

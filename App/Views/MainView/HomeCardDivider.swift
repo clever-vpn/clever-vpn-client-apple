@@ -5,20 +5,22 @@
 //  Created by bolin wu on 2025/1/9.
 
 import SwiftUI
+import CleverVpnKit
 
 struct HomeCardDivider: View {
-    @EnvironmentObject var vpnModel: CleverVpnModel
+//    @EnvironmentObject var vpnModel: CleverVpnModel
+    @EnvironmentObject var cleverVPNModel: VPNClient
 
 
     var body: some View {
 
-        switch vpnModel.vpnStatus {
+        switch cleverVPNModel.status {
 
         case  .connecting:
 //            ProgressView(value: 0.5)
             IndeterminateLinearProgress()
                 .padding(.horizontal, 30)
-        case .connected, .reconnecting:
+        case .connected:
             HStack {
                 // embeded in vstack because divider in hstack becomes vertical
                 VStack {
@@ -26,7 +28,7 @@ struct HomeCardDivider: View {
                         .padding(.leading, 30)
                         .padding(.trailing, 10)
                 }
-                ElapsedTimeView(startDate: vpnModel.startTime ?? Date.now)
+                ElapsedTimeView(startDate: cleverVPNModel.connectedDate ?? Date.now)
                     .frame(minWidth: 100, maxWidth: 110)
                 VStack {
                     Divider()
@@ -45,7 +47,7 @@ struct HomeCardDivider: View {
                         .padding(.leading, 30)
                         .padding(.trailing, 10)
                 }.frame(maxWidth: .infinity)
-                Text(vpnModel.vpnStatus.displayText())
+                Text(cleverVPNModel.status.displayText())
                     .font(.headline)
                     .padding(.bottom, 2).padding(.top, 2)
                     .padding(.trailing, 10)
@@ -131,5 +133,5 @@ struct IndeterminateLinearProgress: View {
 }
 
 #Preview {
-    HomeCardDivider().environmentObject(CleverVpnModel())
+    HomeCardDivider().environmentObject(vpnClient)
 }

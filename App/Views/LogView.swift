@@ -18,7 +18,7 @@ struct MyLogDocument: FileDocument {
     init(logItems: [LogEntry] = []) {
         text = ""
         for log in logItems {
-            text.append("\(log.timestamp):  \(log.message)\n")
+            text.append("\(log.level):  \(log.message)\n")
         }
     }
 
@@ -38,29 +38,30 @@ struct MyLogDocument: FileDocument {
 }
 
 struct LogView: View {
-    @EnvironmentObject var logModel: CleverVpnLogs
+    //    @EnvironmentObject var logModel: CleverVpnLogs
+    @EnvironmentObject var cleverVPNLogModel: VPNLogModel
+
     @State private var isPresented = false
     @State private var showAlert = false
     @State private var alertMessage = ""
 
     var body: some View {
         ScrollViewReader { proxy in
-            
+
             ScrollView {
                 VStack(alignment: .leading) {
-                    ForEach(logModel.logItems, id: \.hashValue) { log in
-                        Text("\(log.timestamp):  \(log.message)")
-                            
+                    ForEach(cleverVPNLogModel.logList) { log in
+                        Text(log.attribedMessage)
                     }
                 }.padding(.horizontal, 20)
             }
             .padding(.bottom, 20)
             .navigationTitle("Logs")
             .onAppear {
-                logModel.startLog()
+                cleverVPNLogModel.setViewGateOpen(true)
             }
             .onDisappear {
-                logModel.stopLog()
+                cleverVPNLogModel.setViewGateOpen(false)
             }
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {
@@ -68,8 +69,10 @@ struct LogView: View {
                         isPresented.toggle()
                     }
                     .fileExporter(
-                        isPresented: $isPresented, document: MyLogDocument(logItems: logModel.logItems),
-                        contentType: .plainText, defaultFilename: "clever-vpn-log.txt"
+                        isPresented: $isPresented,
+                        document: MyLogDocument(logItems: cleverVPNLogModel.logList),
+                        contentType: .plainText,
+                        defaultFilename: "clever-vpn-log.txt"
                     ) { result in
                         switch result {
                         case .success(let url):
@@ -82,21 +85,25 @@ struct LogView: View {
                     }
                     .alert(isPresented: $showAlert) {
                         Alert(
-                            title: Text("Export Result"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
+                            title: Text("Export Result"),
+                            message: Text(alertMessage),
+                            dismissButton: .default(Text("OK"))
+                        )
                     }
-                    
-                }            }
-            .onChange(of: logModel.logItems) { _ in
-                if let lastMessageIndex = logModel.logItems.last {
+
+                }
+            }
+            .onChange(of: cleverVPNLogModel.logList) { _ in
+                if let lastMessageIndex = cleverVPNLogModel.logList.last {
                     withAnimation {
-                        proxy.scrollTo(lastMessageIndex.hashValue, anchor: .bottom)
+                        proxy.scrollTo(lastMessageIndex.id, anchor: .bottom)
                     }
                 }
             }
-            .onAppear() {
-                if let lastMessageIndex = logModel.logItems.last {
+            .onAppear {
+                if let lastMessageIndex = cleverVPNLogModel.logList.last {
                     withAnimation {
-                        proxy.scrollTo(lastMessageIndex.hashValue, anchor: .bottom)
+                        proxy.scrollTo(lastMessageIndex.id, anchor: .bottom)
                     }
                 }
             }
@@ -112,6 +119,5 @@ struct LogView: View {
 //}
 
 #Preview {
-    let logModel = CleverVpnLogs()
     return LogView().environmentObject(logModel)
 }

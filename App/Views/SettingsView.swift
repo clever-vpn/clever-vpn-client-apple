@@ -5,55 +5,25 @@
 //  Created by bolin wu on 2025/1/9.
 //
 
+import CleverVpnKit
 import Foundation
 import SwiftUI
-import CleverVpnKit
-
-extension ProtocolType {
-    public var description: String {
-        switch self {
-        case .udp:
-            return "for low packet loss"
-        case .kudp:
-            return "for high packet loss"
-        case .tcp:
-            return "for UDP not available"
-        case .auto:
-            return "auto Select Protocol (default)"
-        @unknown default:
-            return "Unknown"
-            
-        }
-    }
-}
-
-
 
 struct SettingsView: View {
-    @EnvironmentObject var vpnModel: CleverVpnModel
+    //    @EnvironmentObject var vpnModel: CleverVpnModel
+    @EnvironmentObject var cleverVPNModel: VPNClient
     @State var selectedProtocol: ProtocolType = .auto
-    
+
     var body: some View {
         Form {
             Section("User ID") {
-
                 SignOutView()
-//                AccountView()
-//
-//                NavigationLink("Plan") {
-//                    PlanManagement(isRefreshable: true)
-//                }
-//
-//                NavigationLink("Help") {
-//                    HelpView()
-//                }
-
             }
             Section("Protocol Type") {
-                List(ProtocolType.allCases) { option in
+                ForEach(ProtocolType.allCases) { option in
                     HStack {
                         Text(option.rawValue)
-                        
+
                         Text(option.description)
                             .foregroundColor(.gray)
                             .font(.subheadline)
@@ -67,103 +37,49 @@ struct SettingsView: View {
                     .contentShape(Rectangle())
                     .onTapGesture {
                         self.selectedProtocol = option
-                        vpnModel.setProtocolType(protocolType: option)
+                        cleverVPNModel.updateProtocolType(protocolType: option)
                     }
                 }
             }.onAppear {
-                if let protocolType = vpnModel.userInfo?.protocolType {
+                if let protocolType = cleverVPNModel.userInfo?.protocolType {
                     Task { @MainActor in
                         self.selectedProtocol = protocolType
                     }
                 }
             }
 
-            
             #if os(macOS)
-            if #available(macOS 13, *)
-            {
-                Section("Launch at Login") {
-                LaunchAtLogin.Toggle()
-                }
-            }
-            #endif
-            
-            Section("Log View") {
-                NavigationLinkEx(destination: LogView()) {
-                    Text("Log View")
-                }
-            }
-            
-            if let url = vpnModel.userInfo?.url {
-                    Section("About us") {
-                        Link("Clever VPN", destination: URL(string: url)!)
+                if #available(macOS 13, *) {
+                    Section("Launch at Login") {
+                        LaunchAtLogin.Toggle()
                     }
-            }
-                
+                }
+            #endif
+
+                        Section("Log View") {
+                            NavigationLinkEx(destination: LogView()) {
+                                Text("Log View")
+                            }
+                        }
+
+                        Section("About us") {
+                            let urlString = cleverVPNModel.userInfo?.providerUrl ?? "https://github.com/clever-vpn/clever-vpn-client-apple"
+                            if let url = URL(string: urlString) {
+                                Link("Clever VPN", destination: url)
+                            }
+                        }
+
             Section("Version") {
                 let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "Unknown"
                 let appBuild = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? ""
-                //                    appVersion += " (\(appBuild))"
-//                }
-                
 
-                    Text("(\(appVersion)-\(appBuild))")
-                           }
-
-//            SignOutView()
+                Text("(\(appVersion)-\(appBuild))")
+            }
         }
         .modifier(FormModifier())
         .navigationTitle("Settings")
     }
-    
-//    var body: some View {
-//        VStack {
-//            
-//            Button(action: {
-//                vpnModel.deActivate()
-//            }) {
-//                Text("Logout")
-//            }
-//
-////            Button(action: {
-////                vpnModel.turnOn(true)
-////            }) {
-////                Text("Turn On")
-////            }
-//            
-//            NavigationLinkEx(destination: AuthView()) {
-//                Text("Login")
-//            }
-//            
-//            if #available(macOS 14, *) {
-//                
-//                Button("Hello, world!") {
-//                    isShowingInspector.toggle()
-//                }
-//                .font(.largeTitle)
-//                .sheet(isPresented: $isShowingInspector) {
-//                    Text("Inspector View")
-//                }
-//            }
-////            if #available(macOS 13, *) {
-////                NavigationLink(destination: LogView()) {
-////                    Text("Log Detail")
-////                }
-////            }else
-////            {
-////                StackNavigationLink(destination: LogView()) {
-////                    Text("Log Detail-12")
-////                }
-////            }
-//            
-//            NavigationLinkEx(destination: LogView()) {
-//                Text("Log Detail")
-//            }
-//            
-//        }
-//    }
-    
-    
+
 }
 
 struct FormModifier: ViewModifier {
@@ -177,5 +93,5 @@ struct FormModifier: ViewModifier {
 }
 
 #Preview {
-    SettingsView().environmentObject(CleverVpnModel())
+    SettingsView().environmentObject(vpnClient)
 }

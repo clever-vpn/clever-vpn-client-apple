@@ -6,19 +6,21 @@
 //
 
 import SwiftUI
+import CleverVpnKit
 
 struct HomeCard: View {
-    @EnvironmentObject var vpnModel: CleverVpnModel
+//    @EnvironmentObject var vpnModel: CleverVpnModel
+    @EnvironmentObject var cleverVPNModel: VPNClient
 
     private var isOnBinding: Binding<Bool> {
             Binding(
-                get: { vpnModel.vpnStatus.shouldToggleBeOn() },
+                get: { cleverVPNModel.status.shouldToggleBeOn() },
                 set: { newValue in
-                    if newValue != vpnModel.vpnStatus.shouldToggleBeOn() {
+                    if newValue != cleverVPNModel.status.shouldToggleBeOn() {
                         if newValue {
-                            vpnModel.turnOn(true)
+                            cleverVPNModel.startVPN()
                         } else {
-                            vpnModel.turnOn(false)
+                            cleverVPNModel.stopVPN()
                         }
                     }
                 }
@@ -31,10 +33,10 @@ struct HomeCard: View {
             Spacer()
             VStack(spacing: 15) {
 
-                Image(systemName: vpnModel.vpnStatus.shieldSystemImage())
+                Image(systemName: cleverVPNModel.status.shieldSystemImage())
                     .resizable()
                     .scaledToFit()
-                    .foregroundColor(vpnModel.vpnStatus.isConnected() ? Color.green : Color.black)
+                    .foregroundColor(cleverVPNModel.status.isConnected() ? Color.green : Color.black)
                     .frame(minWidth: 50, maxWidth: 100,  minHeight: 50, maxHeight: 100)
                     .font(.headline.weight(.light))
 
@@ -54,12 +56,12 @@ struct HomeCard: View {
                 .padding(.vertical).frame(height: 80)
 
             VStack(spacing: 15) {
-                HomeCardLocation()
+                HomeCardLine()
 
                 Toggle("", isOn: isOnBinding)
                     .labelsHidden()
                     .toggleStyle(.switch)
-                    .disabled(!vpnModel.vpnStatus.isDisconnectedOrConnected())
+                    .disabled(!cleverVPNModel.status.isDisconnectedOrConnected())
             }
             Spacer()
         }
@@ -72,7 +74,7 @@ struct HomeCard: View {
 
 #Preview {
     HomeCard()
-        .environmentObject(CleverVpnModel())
+        .environmentObject(vpnClient)
 }
 
 //#Preview {

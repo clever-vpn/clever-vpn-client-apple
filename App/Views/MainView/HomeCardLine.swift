@@ -6,34 +6,37 @@
 //
 
 import Foundation
-
 import SwiftUI
+import CleverVpnKit
 
-struct HomeCardLocation: View {
+struct HomeCardLine: View {
 
-    @EnvironmentObject var vpnModel: CleverVpnModel
-    @State private var showLocationMenu = false
+//    @EnvironmentObject var vpnModel: CleverVpnModel
+    @EnvironmentObject var cleverVPNModel: VPNClient
+
+    @State private var showLineMenu = false
 
 
     var body: some View {
         HStack(spacing: 15) {
-            if let location = vpnModel.location {
-                
-                FlagImage(countryCode: location.code)
-                    .padding(.trailing, 5)
-                Text(location.label)
-                    .font(.headline)
-            } else {
+
+                if let line = cleverVPNModel.line {
+                    LineIconView(iconKind: line.iconKind, icon: line.icon)
+//                    FlagImage(countryCode: icon)
+                        .padding(.trailing, 5)
+                    Text(line.label)
+                        .font(.headline)
+                } else {
                 Image(systemName: "globe").foregroundColor(.blue)
-                Text("Auto Select Adress")
+                Text("Auto Select Line")
                     .font(.headline)
             }
                 
 
 
 
-            if vpnModel.vpnStatus.isDisconnectedOrConnected() {
-                if vpnModel.vpnStatus.isDisconnected() {
+            if cleverVPNModel.status.isDisconnectedOrConnected() {
+                if cleverVPNModel.status.isDisconnected()  {
                     Image(systemName: "pencil.circle")
                 }else {
                     Circle()
@@ -62,27 +65,33 @@ struct HomeCardLocation: View {
 //                        .disabled(!vpnModel.vpnStatus.isDisconnected())
 //                    }
 //        }
-        .sheet(isPresented: $showLocationMenu) {
+        .sheet(isPresented: $showLineMenu) {
             VStack {
                 if #available(iOS 16, macOS 13, *) {
-                    LocationMenuView(close: $showLocationMenu)
+                    LineMenuView(close: $showLineMenu)
                         .presentationDragIndicator(.visible)
                         .presentationDetents([.medium, .large])
                     
                 } else {
-                    LocationMenuView(close: $showLocationMenu)
+                    LineMenuView(close: $showLineMenu)
                 }
                 
                 
 #if os(iOS)
                 Divider()
                 HStack {
-                    
                     Button {
-                        vpnModel.loadLocations(fromApi: true)
+                        cleverVPNModel.refreshLines()
                     } label : {
-                        Text("Refresh")
-                    }.buttonStyle(.bordered)
+                        if cleverVPNModel.apiStatus == .connecting {
+                            ProgressView()
+                                .modifier(ScaleEffectModifier())
+                        } else {
+                            Text("Refresh")
+                        }
+                    }
+                    .buttonStyle(.bordered)
+                    .disabled(cleverVPNModel.apiStatus == .connecting)
                 }
 #endif
             }
@@ -91,17 +100,27 @@ struct HomeCardLocation: View {
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
                     Button {
-                        showLocationMenu.toggle()
+                        showLineMenu.toggle()
                     } label : {
                         Text("Close")
                     }
                 }
                 ToolbarItem(placement: .cancellationAction) {
                     Button {
-                        vpnModel.loadLocations(fromApi: true)
+                        cleverVPNModel.refreshLines()
                     } label : {
-                        Text("Refresh")
+                        if cleverVPNModel.apiStatus == .connecting {
+                            if #available(macOS 13, *) {
+                                ProgressView()
+                                    .modifier(ScaleEffectModifier())
+                            } else {
+                                Text("Refresh")
+                            }
+                        } else {
+                            Text("Refresh")
+                        }
                     }
+                    .disabled(cleverVPNModel.apiStatus == .connecting)
                 }
 
             }
@@ -109,35 +128,11 @@ struct HomeCardLocation: View {
         }
         .onTapGesture {
 //            if vpnModel.locations.count > 0 {
-                showLocationMenu.toggle()
+                showLineMenu.toggle()
 //            }
         }
     }
     
-//    #if os(macOS)
-//    @ViewBuilder private var macBtn : some View {
-//        Button {
-//            showLocationMenu.toggle()
-//        } label : {
-//            Text("Close")
-//        }
-//        
-//            ToolbarItem(placement: .confirmationAction) {
-//                Button {
-//                    showLocationMenu.toggle()
-//                } label : {
-//                    Text("Close")
-//                }
-//            }
-//            ToolbarItem(placement: .cancellationAction) {
-//                Button {
-//                    showLocationMenu.toggle()
-//                } label : {
-//                    Text("Refresh")
-//                }
-//            }
-//    }
-//    #endif
 }
 
 struct ToolBarModifier : ViewModifier {
@@ -158,6 +153,6 @@ struct ToolBarModifier : ViewModifier {
 
 
 #Preview {
-    HomeCardLocation()
-        .environmentObject(CleverVpnModel())
+    HomeCardLine()
+        .environmentObject(vpnClient)
 }

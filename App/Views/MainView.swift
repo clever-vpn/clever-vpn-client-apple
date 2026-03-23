@@ -11,17 +11,17 @@ import CleverVpnKit
 import SwiftUI
 
 struct MainView: View {
-    @EnvironmentObject var vpnModel: CleverVpnModel
+//    @EnvironmentObject var vpnModel: CleverVpnModel
     var body: some View {
         MainViewContent()
         .navigationTitle("Clever VPN")
-//        .onReceive(NotificationCenter.default.publisher(for: NSApplication.willResignActiveNotification)) { _ in
-//            VpnApi.stop()
-//        }
     }
     
 }
 
 #Preview {
-    MainView().environmentObject(CleverVpnModel())
+    MainView()
+        .environmentObject(vpnClient)
+        .environmentObject(logModel)
+        .environmentObject(trafficModel)
 }

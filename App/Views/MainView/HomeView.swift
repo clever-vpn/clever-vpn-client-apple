@@ -7,9 +7,12 @@
 
 import Foundation
 import SwiftUI
+import CleverVpnKit
 
 struct HomeView: View {
-    @EnvironmentObject var vpnModel: CleverVpnModel
+//    @EnvironmentObject var vpnModel: CleverVpnModel
+    @EnvironmentObject var cleverVPNModel: VPNClient
+    @EnvironmentObject var cleverVPNTrafficModel: VPNTrafficModel
 
     var body: some View {
         GeometryReader { reader in
@@ -33,11 +36,11 @@ struct HomeView: View {
                     #endif
                 }.frame( minHeight: reader.size.height * 0.55)
                 
-                if vpnModel.vpnStatus.isConnected() {
+                if cleverVPNModel.status.isConnected() {
                     CardContainer {
                         StatsCard(
-                            tx: prettyBytes(UInt64(vpnModel.traffic.tx)),
-                            rx: prettyBytes(UInt64(vpnModel.traffic.rx))
+                            tx: prettyBytes(UInt64(cleverVPNTrafficModel.traffic?.uplinkTotal ?? 0)),
+                            rx: prettyBytes(UInt64(cleverVPNTrafficModel.traffic?.downlinkTotal ?? 0))
                         )
                         
 //                        StatsCard(tx:"\(vpnModel.runtimeConfiguration.tx)", rx: "\(vpnModel.runtimeConfiguration.rx)")
@@ -73,6 +76,12 @@ struct HomeView: View {
                 }
             }
         }
+        .onAppear {
+            cleverVPNTrafficModel.setViewGateOpen(true)
+        }
+        .onDisappear {
+            cleverVPNTrafficModel.setViewGateOpen(false)
+        }
 
     }
 }
@@ -94,6 +103,8 @@ func prettyBytes(_ bytes: UInt64) -> String {
 
 
 #Preview {
-    HomeView().environmentObject(CleverVpnModel())
+    HomeView()
+        .environmentObject(vpnClient)
+        .environmentObject(trafficModel)
 }
 
