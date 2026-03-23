@@ -10,24 +10,29 @@ import SwiftUI
 import FlagKit
 import CleverVpnKit
 
-struct LocationView: View {
-    var location: Location?
-
-    @EnvironmentObject var vpnModel: CleverVpnModel
-
+struct LineView: View {
+    var line: Line?
+    @EnvironmentObject var cleverVPNModel: VpnClient
+    
+    //    @EnvironmentObject var vpnModel: CleverVpnModel
+    
     var body: some View {
         HStack(spacing: 15) {
-            if let location = location {
-                FlagImage(countryCode: location.code)
-                Text(location.label)
-                    .font(.headline)
+            if let line = line {
+                if line.iconKind != "service" , let icon = line.icon{
+                    FlagImage(countryCode: icon)
+                    Text(line.label)
+                        .font(.headline)
+                }else {
+                    Image(systemName: "globe").foregroundColor(.blue)
+                }
             }else {
                 Image(systemName: "globe").foregroundColor(.blue)
                 Text("Auto Select Adress")
                     .font(.headline)
             }
             Spacer()
-            if (location?.id == vpnModel.location?.id) {
+            if (line?.id == cleverVPNModel.line?.id) {
                 Image(systemName: "checkmark.circle").foregroundColor(Color.green)
             }
         }
@@ -36,17 +41,16 @@ struct LocationView: View {
         // contentShape and onTapGuesture is only required for iOS 15
         // Because List selection doesn't work, follwing note from the link:
         // https://developer.apple.com/documentation/swiftui/list
-        // In iOS 15, iPadOS 15, and tvOS 15 and earlier, lists support selection 
+        // In iOS 15, iPadOS 15, and tvOS 15 and earlier, lists support selection
         // only in edit mode, even for single selections.
         .contentShape(Rectangle())
         // contentShape for: https://stackoverflow.com/questions/57191013/swiftui-cant-tap-in-spacer-of-hstack
         .onTapGesture {
-            vpnModel.setLocation(selectedLocation: location)
-        }
+            cleverVPNModel.updateLine(id: line?.id)   }
     }
 }
 
 #Preview {
-    LocationView(location: Location(id:1, code: "US", label: "LAX", used: 0))
+    LineView(line: Line(id:1, label: "United States", icon: "US"))
         .environmentObject(CleverVpnModel())
 }
