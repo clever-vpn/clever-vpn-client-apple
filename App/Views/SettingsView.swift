@@ -19,12 +19,22 @@ struct SettingsView: View {
             Section("User ID") {
                 SignOutView()
             }
+            Section("Split Routing") {
+                NavigationLinkEx(destination: SplitSettingsView()) {
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text("Split Routing")
+                        Text("Configure region, domain, and IP rules")
+                            .foregroundColor(.gray)
+                            .font(.subheadline)
+                    }
+                }
+            }
             Section("Protocol Type") {
                 ForEach(ProtocolType.allCases) { option in
                     HStack {
-                        Text(option.rawValue)
+                        Text(option.localizedTitle)
 
-                        Text(option.description)
+                        Text(option.localizedDescription)
                             .foregroundColor(.gray)
                             .font(.subheadline)
                         Spacer()
@@ -70,7 +80,7 @@ struct SettingsView: View {
                         }
 
             Section("Version") {
-                let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "Unknown"
+                let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? NSLocalizedString("Unknown", comment: "")
                 let appBuild = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? ""
 
                 Text("(\(appVersion)-\(appBuild))")
@@ -94,4 +104,44 @@ struct FormModifier: ViewModifier {
 
 #Preview {
     SettingsView().environmentObject(vpnClient)
+}
+
+private extension ProtocolType {
+    var localizedTitle: String {
+        switch self {
+        case .auto:
+            return NSLocalizedString("Auto", comment: "")
+        case .udpTunnel:
+            return NSLocalizedString("UDP Tunnel", comment: "")
+        case .udpFast:
+            return NSLocalizedString("UDP Fast", comment: "")
+        case .udpStable:
+            return NSLocalizedString("UDP Stable", comment: "")
+        case .tcpFast:
+            return NSLocalizedString("TCP Fast", comment: "")
+        case .tcpStable:
+            return NSLocalizedString("TCP Stable", comment: "")
+        @unknown default:
+            return NSLocalizedString("Unknown", comment: "")
+        }
+    }
+
+    var localizedDescription: String {
+        switch self {
+        case .auto:
+            return NSLocalizedString("Automatic protocol selection (default)", comment: "")
+        case .udpTunnel:
+            return NSLocalizedString("Use UDP for the L3 tunnel", comment: "")
+        case .udpFast:
+            return NSLocalizedString("Use fast UDP", comment: "")
+        case .udpStable:
+            return NSLocalizedString("Use stable UDP", comment: "")
+        case .tcpFast:
+            return NSLocalizedString("Use fast TCP", comment: "")
+        case .tcpStable:
+            return NSLocalizedString("Use stable TCP", comment: "")
+        @unknown default:
+            return NSLocalizedString("Unknown", comment: "")
+        }
+    }
 }

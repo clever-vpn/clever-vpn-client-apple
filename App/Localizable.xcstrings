@@ -11,6 +11,12 @@
             "state" : "new",
             "value" : "(%1$@-%2$@)"
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "(%1$@-%2$@)"
+          }
         }
       }
     },
@@ -35,12 +41,22 @@
         }
       }
     },
+    "Advanced Settings" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "高级设置"
+          }
+        }
+      }
+    },
     "Agree to associate device data to your account" : {
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "同意将设备的某些信息关联到您的账户"
+            "value" : "同意将设备数据关联到您的账户"
           }
         }
       }
@@ -50,7 +66,17 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "您同意吗？"
+            "value" : "您确定吗？"
+          }
+        }
+      }
+    },
+    "Auto" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "自动"
           }
         }
       }
@@ -67,7 +93,24 @@
       }
     },
     "Auto Select Line" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "自动选择线路"
+          }
+        }
+      }
+    },
+    "Automatic protocol selection (default)" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "自动选择协议（默认）"
+          }
+        }
+      }
     },
     "Cancel" : {
       "localizations" : {
@@ -80,7 +123,14 @@
       }
     },
     "Clever VPN" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clever VPN"
+          }
+        }
+      }
     },
     "Clever VPN Error" : {
       "localizations" : {
@@ -102,28 +152,213 @@
         }
       }
     },
+    "Configure region, domain, and IP rules" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "配置地区、域名和 IP 规则"
+          }
+        }
+      }
+    },
+    "Connecting" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "连接中"
+          }
+        }
+      }
+    },
+    "Detected code" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "检测到的地区代码"
+          }
+        }
+      }
+    },
+    "Disconnecting" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "断开中"
+          }
+        }
+      }
+    },
+    "Domain & Suffix Rules" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "域名与后缀规则"
+          }
+        }
+      }
+    },
+    "Domain Regex" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "域名正则"
+          }
+        }
+      }
+    },
+    "Domain Rules" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "域名规则"
+          }
+        }
+      }
+    },
+    "DOWNLOADED" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已下载"
+          }
+        }
+      }
+    },
+    "Enable domain split" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "启用域名分流"
+          }
+        }
+      }
+    },
+    "Enable IP split" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "启用 IP 分流"
+          }
+        }
+      }
+    },
+    "Enable region split" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "启用地区分流"
+          }
+        }
+      }
+    },
     "Export Result" : {
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "导出"
+            "value" : "导出结果"
+          }
+        }
+      }
+    },
+    "Failed to save file: %@" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "保存文件失败：%1$@"
           }
         }
       }
     },
     "Fast Modern VPN" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "现代高速 VPN"
+          }
+        }
+      }
+    },
+    "File saved to: %@" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "文件已保存到：%1$@"
+          }
+        }
+      }
     },
     "For the app to work with the Clever VPN service and in-app purchases, the following device data is associated with your account:\n\n- Unique random device ID\n- Device name or hostname\n- OS version and type\n- CPU architecture\n- User ID\n\n**Clever VPN values your privacy**. You can sign out from the device and delete your data by deactivating at any time." : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "为了让应用正常使用 Clever VPN 服务和应用内购买，以下设备数据会与您的账户关联：\n\n- 随机生成的唯一设备 ID\n- 设备名称或主机名\n- 操作系统版本和类型\n- CPU 架构\n- 用户 ID\n\n**Clever VPN 重视您的隐私**。您可以随时通过停用服务来退出登录并删除您的数据。"
+          }
+        }
+      }
     },
     "Home" : {
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "主页"
+            "value" : "首页"
+          }
+        }
+      }
+    },
+    "Invalid" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "无效"
+          }
+        }
+      }
+    },
+    "IP CIDR List" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "IP CIDR 列表"
+          }
+        }
+      }
+    },
+    "IP Rules" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "IP 规则"
+          }
+        }
+      }
+    },
+    "Launch at login" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "登录时启动"
           }
         }
       }
@@ -133,7 +368,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "登陆时启动"
+            "value" : "登录时启动"
           }
         }
       }
@@ -143,7 +378,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "浏览日志"
+            "value" : "日志"
           }
         }
       }
@@ -153,7 +388,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "登陆"
+            "value" : "登录"
           }
         }
       }
@@ -163,7 +398,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "登出"
+            "value" : "退出登录"
           }
         }
       }
@@ -178,8 +413,55 @@
         }
       }
     },
+    "No key" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "未设置"
+          }
+        }
+      }
+    },
     "OK" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "确定"
+          }
+        }
+      }
+    },
+    "One item per line, for example: 10.0.0.0/8" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "每行一项，例如：10.0.0.0/8"
+          }
+        }
+      }
+    },
+    "One item per line. Use .example.com for suffix, api.example.com for exact domain." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "每行一项。使用 .example.com 表示后缀，api.example.com 表示精确域名。"
+          }
+        }
+      }
+    },
+    "One regex per line. example: ^stun\\\\..+" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "每行一条正则，例如：^stun\\\\..+"
+          }
+        }
+      }
     },
     "Protocol Type" : {
       "localizations" : {
@@ -201,12 +483,52 @@
         }
       }
     },
+    "Reasserting" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "重新连接中"
+          }
+        }
+      }
+    },
     "Refresh" : {
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "刷新"
+          }
+        }
+      }
+    },
+    "Region" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "地区"
+          }
+        }
+      }
+    },
+    "Region code is automatically detected by system and not editable." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "地区代码由系统自动检测，无法编辑。"
+          }
+        }
+      }
+    },
+    "Relay" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "中继"
           }
         }
       }
@@ -221,6 +543,26 @@
         }
       }
     },
+    "Save Split Settings" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "保存分流设置"
+          }
+        }
+      }
+    },
+    "Saved" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已保存"
+          }
+        }
+      }
+    },
     "Settings" : {
       "localizations" : {
         "zh-Hans" : {
@@ -231,8 +573,165 @@
         }
       }
     },
+    "Split Routing" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "分流设置"
+          }
+        }
+      }
+    },
+    "Split settings have been updated." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "分流设置已更新。"
+          }
+        }
+      }
+    },
+    "TCP Fast" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "TCP 快速"
+          }
+        }
+      }
+    },
+    "TCP Stable" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "TCP 稳定"
+          }
+        }
+      }
+    },
+    "UDP Fast" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "UDP 快速"
+          }
+        }
+      }
+    },
+    "UDP Stable" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "UDP 稳定"
+          }
+        }
+      }
+    },
+    "UDP Tunnel" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "UDP 隧道"
+          }
+        }
+      }
+    },
+    "Unknown" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "未知"
+          }
+        }
+      }
+    },
+    "UPLOADED" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已上传"
+          }
+        }
+      }
+    },
+    "Upstream Proxy" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "上游代理"
+          }
+        }
+      }
+    },
+    "Use fast TCP" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "使用高速 TCP"
+          }
+        }
+      }
+    },
+    "Use fast UDP" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "使用高速 UDP"
+          }
+        }
+      }
+    },
+    "Use stable TCP" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "使用稳定 TCP"
+          }
+        }
+      }
+    },
+    "Use stable UDP" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "使用稳定 UDP"
+          }
+        }
+      }
+    },
+    "Use UDP for the L3 tunnel" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "对三层隧道使用 UDP"
+          }
+        }
+      }
+    },
     "User ID" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "用户 ID"
+          }
+        }
+      }
     },
     "Version" : {
       "localizations" : {
@@ -240,6 +739,26 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "版本"
+          }
+        }
+      }
+    },
+    "VPN is off" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "VPN 已关闭"
+          }
+        }
+      }
+    },
+    "VPN is on" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "VPN 已开启"
           }
         }
       }
@@ -255,7 +774,14 @@
       }
     },
     "xN = Factor" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "xN = 倍率"
+          }
+        }
+      }
     }
   },
   "version" : "1.0"

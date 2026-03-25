@@ -139,7 +139,7 @@ extension LaunchAtLogin.Toggle<Text> {
 	Creates a toggle with the default title of `Launch at login`.
 	*/
 	public init() {
-		self.init("Launch at login")
+		self.init(LocalizedStringKey("Launch at Login"))
 	}
 }
 #endif

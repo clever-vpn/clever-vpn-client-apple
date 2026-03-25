@@ -13,19 +13,19 @@ extension NEVPNStatus {
     func displayText() -> String {
         switch self {
         case .disconnected:
-            "VPN is off"
+            NSLocalizedString("VPN is off", comment: "")
         case .connecting:
-            "Connecting"
+            NSLocalizedString("Connecting", comment: "")
         case .connected:
-            "VPN is on"
+            NSLocalizedString("VPN is on", comment: "")
         case .disconnecting:
-            "Disconnecting"
+            NSLocalizedString("Disconnecting", comment: "")
         case .invalid:
-            "Invalid"
+            NSLocalizedString("Invalid", comment: "")
         case .reasserting:
-            "Reasserting"
+            NSLocalizedString("Reasserting", comment: "")
         @unknown default:
-            "Unknown"
+            NSLocalizedString("Unknown", comment: "")
         }
     }
     

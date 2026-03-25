@@ -25,7 +25,7 @@ struct StatsCard: View {
 struct Stat: View {
     var systemName: String
     var text: String
-    var caption: String
+    var caption: LocalizedStringKey
 
     var body: some View {
         HStack(spacing: 10) {

@@ -64,7 +64,7 @@ private struct LineBadgeLegendView: View {
 
 private struct LineLegendItem: View {
     let systemImage: String
-    let text: String
+    let text: LocalizedStringKey
     let tint: Color
 
     var body: some View {

@@ -19,7 +19,7 @@ struct SignOutView: View {
         
 //        let key = vpnModel.userInfo?.key ?? "no key"
         let key0 = groupDigits(cleverVPNModel.userInfo?.key ?? "", len: 4)
-        let key = key0.isEmpty ? "no key" : key0
+        let key = key0.isEmpty ? NSLocalizedString("No key", comment: "") : key0
         
         Text(key)
         Button {

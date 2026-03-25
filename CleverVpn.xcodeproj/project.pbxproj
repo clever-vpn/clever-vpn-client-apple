@@ -67,7 +67,7 @@
 		1174D5CD2D21179300D8A5C9 /* NetworkExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NetworkExtension.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS18.2.sdk/System/Library/Frameworks/NetworkExtension.framework; sourceTree = DEVELOPER_DIR; };
 		1174D5CF2D211B9300D8A5C9 /* Network.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Network.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS18.2.sdk/System/Library/Frameworks/Network.framework; sourceTree = DEVELOPER_DIR; };
 		1174D5E62D23BF9200D8A5C9 /* VpnNetworkExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.extensionkit-extension"; includeInIndex = 0; path = VpnNetworkExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
-		1174D5F92D23F2E300D8A5C9 /* Clever VPN.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Clever VPN.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1174D5F92D23F2E300D8A5C9 /* CleverVPN.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CleverVPN.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		11A4A88C2D64BA7E0098A775 /* CleverVpnEx.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CleverVpnEx.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		11A4A8C12D6570530098A775 /* com.clevervpn.appex.system.systemextension */ = {isa = PBXFileReference; explicitFileType = "wrapper.system-extension"; includeInIndex = 0; path = com.clevervpn.appex.system.systemextension; sourceTree = BUILT_PRODUCTS_DIR; };
 		11C7CE642E5589DB000AECFF /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -200,7 +200,7 @@
 			isa = PBXGroup;
 			children = (
 				1174D5E62D23BF9200D8A5C9 /* VpnNetworkExtension.appex */,
-				1174D5F92D23F2E300D8A5C9 /* Clever VPN.app */,
+				1174D5F92D23F2E300D8A5C9 /* CleverVPN.app */,
 				11A4A88C2D64BA7E0098A775 /* CleverVpnEx.app */,
 				11A4A8C12D6570530098A775 /* com.clevervpn.appex.system.systemextension */,
 			);
@@ -278,7 +278,7 @@
 				1188A4122F644AB5008A97DC /* CleverVpnKit */,
 			);
 			productName = VpnUi;
-			productReference = 1174D5F92D23F2E300D8A5C9 /* Clever VPN.app */;
+			productReference = 1174D5F92D23F2E300D8A5C9 /* CleverVPN.app */;
 			productType = "com.apple.product-type.application";
 		};
 		11A4A8732D64BA7E0098A775 /* CleverVpnEx */ = {
@@ -607,7 +607,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 13;
 				MARKETING_VERSION = "${VERSION_NAME}";
 				PRODUCT_BUNDLE_IDENTIFIER = "${APP_ID}";
-				PRODUCT_NAME = "Clever VPN";
+				PRODUCT_NAME = CleverVPN;
 				REGISTER_APP_GROUPS = YES;
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
@@ -661,7 +661,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 13;
 				MARKETING_VERSION = "${VERSION_NAME}";
 				PRODUCT_BUNDLE_IDENTIFIER = "${APP_ID}";
-				PRODUCT_NAME = "Clever VPN";
+				PRODUCT_NAME = CleverVPN;
 				REGISTER_APP_GROUPS = YES;
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";

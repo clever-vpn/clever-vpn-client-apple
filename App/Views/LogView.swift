@@ -76,10 +76,10 @@ struct LogView: View {
                     ) { result in
                         switch result {
                         case .success(let url):
-                            alertMessage = "File saved to: \(url.path)"
+                            alertMessage = String(format: NSLocalizedString("File saved to: %@", comment: ""), url.path)
                             showAlert = true
                         case .failure(let error):
-                            alertMessage = "Failed to save file: \(error.localizedDescription)"
+                            alertMessage = String(format: NSLocalizedString("Failed to save file: %@", comment: ""), error.localizedDescription)
                             showAlert = true
                         }
                     }

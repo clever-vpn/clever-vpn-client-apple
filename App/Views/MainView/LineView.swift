@@ -50,7 +50,7 @@ struct LineView: View {
                         LineFeatureIcon(
                             systemImage: "arrow.up.forward.circle.fill",
                             tint: .blue,
-                            accessibilityText: "Upstream proxy"
+                            accessibilityText: "Upstream Proxy"
                         )
                     }
                 }
@@ -94,7 +94,7 @@ struct LineView: View {
 private struct LineFeatureIcon: View {
     let systemImage: String
     let tint: Color
-    let accessibilityText: String
+    let accessibilityText: LocalizedStringKey
 
     var body: some View {
         Image(systemName: systemImage)
