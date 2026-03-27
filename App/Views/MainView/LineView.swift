@@ -8,7 +8,6 @@
 
 import Foundation
 import SwiftUI
-import FlagKit
 import CleverVpnKit
 
 struct LineView: View {

@@ -19,16 +19,7 @@ struct SettingsView: View {
             Section("User ID") {
                 SignOutView()
             }
-            Section("Split Routing") {
-                NavigationLinkEx(destination: SplitSettingsView()) {
-                    VStack(alignment: .leading, spacing: 4) {
-                        Text("Split Routing")
-                        Text("Configure region, domain, and IP rules")
-                            .foregroundColor(.gray)
-                            .font(.subheadline)
-                    }
-                }
-            }
+
             Section("Protocol Type") {
                 ForEach(ProtocolType.allCases) { option in
                     HStack {
@@ -56,6 +47,23 @@ struct SettingsView: View {
                         self.selectedProtocol = protocolType
                     }
                 }
+            }
+ 
+            Section("Split Routing") {
+                NavigationLinkEx(destination: SplitSettingsView()) {
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text("Split Routing")
+                        Text("Configure region, domain, and IP rules")
+                            .foregroundColor(.gray)
+                            .font(.subheadline)
+                    }
+                }
+            }
+
+           Section("Connection Info") {
+                connectionInfoRow(title: "Protocol", value: displayConnValue(cleverVPNModel.connInfo?.protocolType))
+                connectionInfoRow(title: "Relay", value: displayConnValue(cleverVPNModel.connInfo?.relayIP))
+                connectionInfoRow(title: "Upstream", value: displayConnValue(cleverVPNModel.connInfo?.upStream))
             }
 
             #if os(macOS)
@@ -90,6 +98,27 @@ struct SettingsView: View {
         .navigationTitle("Settings")
     }
 
+}
+
+private extension SettingsView {
+    @ViewBuilder
+    func connectionInfoRow(title: LocalizedStringKey, value: String) -> some View {
+        HStack {
+            Text(title)
+                .foregroundColor(.secondary)
+            Spacer()
+            Text(value)
+                .multilineTextAlignment(.trailing)
+                .textSelection(.enabled)
+        }
+    }
+
+    func displayConnValue(_ value: String?) -> String {
+        guard let trimmed = value?.trimmingCharacters(in: .whitespacesAndNewlines), !trimmed.isEmpty else {
+            return NSLocalizedString("None", comment: "")
+        }
+        return trimmed
+    }
 }
 
 struct FormModifier: ViewModifier {

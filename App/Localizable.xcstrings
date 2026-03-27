@@ -172,6 +172,36 @@
         }
       }
     },
+    "Connection Info" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "连接信息"
+          }
+        }
+      }
+    },
+    "Copied" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已复制"
+          }
+        }
+      }
+    },
+    "Copy User ID" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "复制用户 ID"
+          }
+        }
+      }
+    },
     "Detected code" : {
       "localizations" : {
         "zh-Hans" : {
@@ -423,6 +453,16 @@
         }
       }
     },
+    "None" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "无"
+          }
+        }
+      }
+    },
     "OK" : {
       "localizations" : {
         "zh-Hans" : {
@@ -459,6 +499,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "每行一条正则，例如：^stun\\\\..+"
+          }
+        }
+      }
+    },
+    "Protocol" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "协议"
           }
         }
       }
@@ -529,6 +579,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "中继"
+          }
+        }
+      }
+    },
+    "Relay IP" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "中继 IP"
           }
         }
       }
@@ -659,6 +720,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "已上传"
+          }
+        }
+      }
+    },
+    "Upstream" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "上游"
           }
         }
       }

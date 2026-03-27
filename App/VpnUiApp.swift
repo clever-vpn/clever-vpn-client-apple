@@ -10,9 +10,6 @@ import CleverVpnKit
 
 @main
 struct VpnUiApp: App {
-    #if os(macOS)
-    @NSApplicationDelegateAdaptor var appDelegate: AppDelegate
-    #endif
     @Environment(\.scenePhase) private var scenePhase
 
 //    @StateObject private var vpnModel = CleverVpnModel()

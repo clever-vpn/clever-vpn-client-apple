@@ -8,17 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		112654072D3B6A6800EC470F /* CodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = 112654062D3B6A6800EC470F /* CodeScanner */; };
+		11688E0B2F764D1200AA57EF /* CleverVpnKit in Frameworks */ = {isa = PBXBuildFile; productRef = 11688E0A2F764D1200AA57EF /* CleverVpnKit */; };
+		11688E0D2F764D1A00AA57EF /* CleverVpnKit in Frameworks */ = {isa = PBXBuildFile; productRef = 11688E0C2F764D1A00AA57EF /* CleverVpnKit */; };
+		11688E0F2F76DCA400AA57EF /* CleverVpnKit in Frameworks */ = {isa = PBXBuildFile; productRef = 11688E0E2F76DCA400AA57EF /* CleverVpnKit */; };
+		11688E112F76DCAC00AA57EF /* CleverVpnKit in Frameworks */ = {isa = PBXBuildFile; productRef = 11688E102F76DCAC00AA57EF /* CleverVpnKit */; };
 		11719C8C2D2B818A00189F35 /* VpnNetworkExtension.appex in Embed ExtensionKit Extensions */ = {isa = PBXBuildFile; fileRef = 1174D5E62D23BF9200D8A5C9 /* VpnNetworkExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		1188A40F2F644A91008A97DC /* CleverVpnKit in Frameworks */ = {isa = PBXBuildFile; productRef = 1188A40E2F644A91008A97DC /* CleverVpnKit */; };
-		1188A4112F644AA3008A97DC /* CleverVpnKit in Frameworks */ = {isa = PBXBuildFile; productRef = 1188A4102F644AA3008A97DC /* CleverVpnKit */; };
-		1188A4132F644AB5008A97DC /* CleverVpnKit in Frameworks */ = {isa = PBXBuildFile; productRef = 1188A4122F644AB5008A97DC /* CleverVpnKit */; };
-		1188A4152F644ABD008A97DC /* CleverVpnKit in Frameworks */ = {isa = PBXBuildFile; productRef = 1188A4142F644ABD008A97DC /* CleverVpnKit */; };
 		11A4A8822D64BA7E0098A775 /* CodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = 11A4A87C2D64BA7E0098A775 /* CodeScanner */; };
 		11A4A8DE2D657C670098A775 /* com.clevervpn.appex.system.systemextension in Embed System Extensions */ = {isa = PBXBuildFile; fileRef = 11A4A8C12D6570530098A775 /* com.clevervpn.appex.system.systemextension */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		11D097582E40750800E15B7B /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11D097572E40750800E15B7B /* NetworkExtension.framework */; };
 		11D0975A2E40751A00E15B7B /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11D097592E40751A00E15B7B /* NetworkExtension.framework */; };
-		11E1A26A2D81872A00B615CB /* FlagKit in Frameworks */ = {isa = PBXBuildFile; productRef = 11E1A2692D81872A00B615CB /* FlagKit */; };
-		11E1A2702D81874300B615CB /* FlagKit in Frameworks */ = {isa = PBXBuildFile; productRef = 11E1A26F2D81874300B615CB /* FlagKit */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +57,46 @@
 				11A4A8DE2D657C670098A775 /* com.clevervpn.appex.system.systemextension in Embed System Extensions */,
 			);
 			name = "Embed System Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		11F261002F74D542001270C8 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		11F261042F74D54C001270C8 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		11F261082F74D55B001270C8 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		11F2610C2F74D561001270C8 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -140,7 +178,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				11D097582E40750800E15B7B /* NetworkExtension.framework in Frameworks */,
-				1188A40F2F644A91008A97DC /* CleverVpnKit in Frameworks */,
+				11688E0B2F764D1200AA57EF /* CleverVpnKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -148,9 +186,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				11E1A26A2D81872A00B615CB /* FlagKit in Frameworks */,
-				1188A4132F644AB5008A97DC /* CleverVpnKit in Frameworks */,
 				112654072D3B6A6800EC470F /* CodeScanner in Frameworks */,
+				11688E0D2F764D1A00AA57EF /* CleverVpnKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -158,9 +195,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				11E1A2702D81874300B615CB /* FlagKit in Frameworks */,
-				1188A4152F644ABD008A97DC /* CleverVpnKit in Frameworks */,
 				11A4A8822D64BA7E0098A775 /* CodeScanner in Frameworks */,
+				11688E112F76DCAC00AA57EF /* CleverVpnKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -169,7 +205,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				11D0975A2E40751A00E15B7B /* NetworkExtension.framework in Frameworks */,
-				1188A4112F644AA3008A97DC /* CleverVpnKit in Frameworks */,
+				11688E0F2F76DCA400AA57EF /* CleverVpnKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -238,6 +274,7 @@
 				1174D5E22D23BF9200D8A5C9 /* Sources */,
 				1174D5E32D23BF9200D8A5C9 /* Frameworks */,
 				1174D5E42D23BF9200D8A5C9 /* Resources */,
+				11F261002F74D542001270C8 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -248,7 +285,7 @@
 			);
 			name = VpnNetworkExtension;
 			packageProductDependencies = (
-				1188A40E2F644A91008A97DC /* CleverVpnKit */,
+				11688E0A2F764D1200AA57EF /* CleverVpnKit */,
 			);
 			productName = VpnNetworkExtension;
 			productReference = 1174D5E62D23BF9200D8A5C9 /* VpnNetworkExtension.appex */;
@@ -262,6 +299,7 @@
 				1174D5F62D23F2E300D8A5C9 /* Frameworks */,
 				1174D5F72D23F2E300D8A5C9 /* Resources */,
 				11719C8F2D2B818A00189F35 /* Embed ExtensionKit Extensions */,
+				11F261042F74D54C001270C8 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -274,8 +312,7 @@
 			name = CleverVpn;
 			packageProductDependencies = (
 				112654062D3B6A6800EC470F /* CodeScanner */,
-				11E1A2692D81872A00B615CB /* FlagKit */,
-				1188A4122F644AB5008A97DC /* CleverVpnKit */,
+				11688E0C2F764D1A00AA57EF /* CleverVpnKit */,
 			);
 			productName = VpnUi;
 			productReference = 1174D5F92D23F2E300D8A5C9 /* CleverVPN.app */;
@@ -290,6 +327,7 @@
 				11A4A8832D64BA7E0098A775 /* Resources */,
 				11A4A8E12D657C680098A775 /* Embed System Extensions */,
 				11F1A0012FEAA11100D00A11 /* Sync Debug App To Applications */,
+				11F261082F74D55B001270C8 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -302,8 +340,7 @@
 			name = CleverVpnEx;
 			packageProductDependencies = (
 				11A4A87C2D64BA7E0098A775 /* CodeScanner */,
-				11E1A26F2D81874300B615CB /* FlagKit */,
-				1188A4142F644ABD008A97DC /* CleverVpnKit */,
+				11688E102F76DCAC00AA57EF /* CleverVpnKit */,
 			);
 			productName = VpnUi;
 			productReference = 11A4A88C2D64BA7E0098A775 /* CleverVpnEx.app */;
@@ -316,6 +353,7 @@
 				11A4A8BD2D6570530098A775 /* Sources */,
 				11A4A8BE2D6570530098A775 /* Frameworks */,
 				11A4A8BF2D6570530098A775 /* Resources */,
+				11F2610C2F74D561001270C8 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -323,7 +361,7 @@
 			);
 			name = VpnSystemExtension;
 			packageProductDependencies = (
-				1188A4102F644AA3008A97DC /* CleverVpnKit */,
+				11688E0E2F76DCA400AA57EF /* CleverVpnKit */,
 			);
 			productName = vpnSystemExtension;
 			productReference = 11A4A8C12D6570530098A775 /* com.clevervpn.appex.system.systemextension */;
@@ -362,8 +400,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				112654032D3B68CD00EC470F /* XCRemoteSwiftPackageReference "CodeScanner" */,
-				110C954C2D817D8B009D1312 /* XCRemoteSwiftPackageReference "FlagKit" */,
-				1188A3912F644781008A97DC /* XCLocalSwiftPackageReference "../clever-vpn-apple-kit" */,
+				11688E092F764CF000AA57EF /* XCLocalSwiftPackageReference "../../clever-vpn-kit" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 11D2E4D72D1012BF00A76F3C /* Products */;
@@ -1054,21 +1091,13 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		1188A3912F644781008A97DC /* XCLocalSwiftPackageReference "../clever-vpn-apple-kit" */ = {
+		11688E092F764CF000AA57EF /* XCLocalSwiftPackageReference "../../clever-vpn-kit" */ = {
 			isa = XCLocalSwiftPackageReference;
-			relativePath = "../clever-vpn-apple-kit";
+			relativePath = "../../clever-vpn-kit";
 		};
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		110C954C2D817D8B009D1312 /* XCRemoteSwiftPackageReference "FlagKit" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/madebybowtie/FlagKit.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.4.0;
-			};
-		};
 		112654032D3B68CD00EC470F /* XCRemoteSwiftPackageReference "CodeScanner" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/twostraws/CodeScanner.git";
@@ -1093,40 +1122,30 @@
 			package = 112654032D3B68CD00EC470F /* XCRemoteSwiftPackageReference "CodeScanner" */;
 			productName = CodeScanner;
 		};
-		1188A40E2F644A91008A97DC /* CleverVpnKit */ = {
+		11688E0A2F764D1200AA57EF /* CleverVpnKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 1188A3912F644781008A97DC /* XCLocalSwiftPackageReference "../clever-vpn-apple-kit" */;
+			package = 11688E092F764CF000AA57EF /* XCLocalSwiftPackageReference "../../clever-vpn-kit" */;
 			productName = CleverVpnKit;
 		};
-		1188A4102F644AA3008A97DC /* CleverVpnKit */ = {
+		11688E0C2F764D1A00AA57EF /* CleverVpnKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 1188A3912F644781008A97DC /* XCLocalSwiftPackageReference "../clever-vpn-apple-kit" */;
+			package = 11688E092F764CF000AA57EF /* XCLocalSwiftPackageReference "../../clever-vpn-kit" */;
 			productName = CleverVpnKit;
 		};
-		1188A4122F644AB5008A97DC /* CleverVpnKit */ = {
+		11688E0E2F76DCA400AA57EF /* CleverVpnKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 1188A3912F644781008A97DC /* XCLocalSwiftPackageReference "../clever-vpn-apple-kit" */;
+			package = 11688E092F764CF000AA57EF /* XCLocalSwiftPackageReference "../../clever-vpn-kit" */;
 			productName = CleverVpnKit;
 		};
-		1188A4142F644ABD008A97DC /* CleverVpnKit */ = {
+		11688E102F76DCAC00AA57EF /* CleverVpnKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 1188A3912F644781008A97DC /* XCLocalSwiftPackageReference "../clever-vpn-apple-kit" */;
+			package = 11688E092F764CF000AA57EF /* XCLocalSwiftPackageReference "../../clever-vpn-kit" */;
 			productName = CleverVpnKit;
 		};
 		11A4A87C2D64BA7E0098A775 /* CodeScanner */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 11A4A87D2D64BA7E0098A775 /* XCRemoteSwiftPackageReference "CodeScanner" */;
 			productName = CodeScanner;
-		};
-		11E1A2692D81872A00B615CB /* FlagKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 110C954C2D817D8B009D1312 /* XCRemoteSwiftPackageReference "FlagKit" */;
-			productName = FlagKit;
-		};
-		11E1A26F2D81874300B615CB /* FlagKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 110C954C2D817D8B009D1312 /* XCRemoteSwiftPackageReference "FlagKit" */;
-			productName = FlagKit;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
