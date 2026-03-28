@@ -80,6 +80,9 @@ struct SplitSettingsView: View {
         .onAppear {
             loadSplitInfoIfNeeded()
         }
+        .onReceive(cleverVPNModel.$userInfo) { _ in
+            loadSplitInfoIfNeeded()
+        }
         .alert("Saved", isPresented: $didSave) {
             Button("OK", role: .cancel) {}
         } message: {
@@ -109,15 +112,6 @@ struct SplitSettingsView: View {
 
         if let splitInfo = cleverVPNModel.userInfo?.splitInfo {
             apply(splitInfo: splitInfo)
-            didLoad = true
-            return
-        }
-
-        Task { @MainActor in
-            _ = await cleverVPNModel.getUserInfo()
-            if let splitInfo = cleverVPNModel.userInfo?.splitInfo {
-                apply(splitInfo: splitInfo)
-            }
             didLoad = true
         }
     }

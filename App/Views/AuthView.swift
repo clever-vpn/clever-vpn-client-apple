@@ -26,92 +26,99 @@ struct AuthView: View {
     }
 
     var body: some View {
-        ScrollView {
-            VStack(spacing: 35) {
+        GeometryReader { proxy in
+            ScrollView {
+                VStack(spacing: 35) {
+                    Spacer(minLength: 0)
 
-                VStack(spacing: 5) {
-                    WelcomeView(showSpinnner: false)
-                    Text("Clever VPN")
-                        .font(.largeTitle.bold())
+                    VStack(spacing: 5) {
+                        WelcomeView(showSpinnner: false)
+                        Text("Clever VPN")
+                            .font(.largeTitle.bold())
 
-                    Text("Fast Modern VPN")
-                        .font(.headline.weight(.thin))
-                }
+                        Text("Fast Modern VPN")
+                            .font(.headline.weight(.thin))
+                    }
 
-                VStack(spacing: 20) {
-                    HStack {
-                        TextField("User ID", text: $authKey)
-                            .padding(12)
-                            .textFieldStyle(PlainTextFieldStyle())
-                            .background(
-                                RoundedRectangle(cornerRadius: 9)
-                                    .strokeBorder(Color.gray, lineWidth: 1)
-                            )
+                    VStack(spacing: 20) {
+                        HStack {
+                            TextField("User ID", text: $authKey)
+                                .padding(12)
+                                .textFieldStyle(PlainTextFieldStyle())
+                                .background(
+                                    RoundedRectangle(cornerRadius: 9)
+                                        .strokeBorder(Color.gray, lineWidth: 1)
+                                )
+                                #if os(iOS)
+                                    //                        .keyboardType(.emailAddress)
+                                    .textInputAutocapitalization(.never)
+                                #endif
+
                             #if os(iOS)
-                                //                        .keyboardType(.emailAddress)
-                                .textInputAutocapitalization(.never)
-                            #endif
-
-                        #if os(iOS)
-                            Button(action: {
-                                isShowingScanner = true
-                            }) {
-                                Image(systemName: "qrcode.viewfinder")
-                                    .resizable()
-                                    .frame(width: 20, height: 20)
-                            }
-                            .buttonStyle(.plain)
-                            .sheet(isPresented: $isShowingScanner) {
-                                CodeScannerView(codeTypes: [.qr]) { response in
-                                    if case let .success(result) = response {
-                                        authKey = result.string
-                                        isShowingScanner = false
+                                Button(action: {
+                                    isShowingScanner = true
+                                }) {
+                                    Image(systemName: "qrcode.viewfinder")
+                                        .resizable()
+                                        .frame(width: 20, height: 20)
+                                }
+                                .buttonStyle(.plain)
+                                .sheet(isPresented: $isShowingScanner) {
+                                    CodeScannerView(codeTypes: [.qr]) { response in
+                                        if case let .success(result) = response {
+                                            authKey = result.string
+                                            isShowingScanner = false
+                                        }
                                     }
                                 }
-                            }
-                        #endif
+                            #endif
 
-                    }
+                        }
 
-                    Toggle(isOn: $userConsent) {
-                        Text("Agree to associate device data to your account")
-                            .font(.caption)
-                            .foregroundStyle(.blue)
-                            .onTapGesture {
-                                dataForUserConsentIsPresented.toggle()
-                            }
-                    }
-                    .padding(.horizontal)
+                        Toggle(isOn: $userConsent) {
+                            Text("Agree to associate device data to your account")
+                                .font(.caption)
+                                .foregroundStyle(.blue)
+                                .onTapGesture {
+                                    dataForUserConsentIsPresented.toggle()
+                                }
+                        }
+                        .padding(.horizontal)
 
-                    Button {
-                        cleverVPNModel.activate(key: authKey)
-                    } label: {
-                        if cleverVPNModel.apiStatus == .connecting {
-                            if #available(macOS 13, iOS 15, *) {
-                                ProgressView()
-                                    .modifier(ScaleEffectModifier())
-                                    .padding(.vertical, 5)
-                                    .frame(maxWidth: .infinity)
+                        Button {
+                            cleverVPNModel.activate(key: authKey)
+                        } label: {
+                            if cleverVPNModel.apiStatus == .connecting {
+                                if #available(macOS 13, iOS 15, *) {
+                                    ProgressView()
+                                        .modifier(ScaleEffectModifier())
+                                        .padding(.vertical, 5)
+                                        .frame(maxWidth: .infinity)
+                                } else {
+                                    // on macOS 12 progress view spinner goes out of button boundary
+                                    Text("Login")
+                                        .padding(.vertical, 5)
+                                        .frame(maxWidth: .infinity)
+                                }
                             } else {
-                                // on macOS 12 progress view spinner goes out of button boundary
                                 Text("Login")
                                     .padding(.vertical, 5)
                                     .frame(maxWidth: .infinity)
                             }
-                        } else {
-                            Text("Login")
-                                .padding(.vertical, 5)
-                                .frame(maxWidth: .infinity)
                         }
-                    }
-                    .keyboardShortcut(.defaultAction)
-                    .buttonStyle(.borderedProminent)
-                    .disabled(buttonDisabled)
+                        .keyboardShortcut(.defaultAction)
+                        .buttonStyle(.borderedProminent)
+                        .disabled(buttonDisabled)
 
+                    }
+                    .padding(.horizontal, 20)
+                    .disabled(cleverVPNModel.activateStatus == .activate || cleverVPNModel.apiStatus == .connecting)
+
+                    Spacer(minLength: 0)
                 }
-                .padding(.horizontal, 20)
-                .disabled(cleverVPNModel.activateStatus == .activate || cleverVPNModel.apiStatus == .connecting)
-            }.sheet(isPresented: $dataForUserConsentIsPresented) {
+                .frame(minHeight: proxy.size.height)
+            }
+            .sheet(isPresented: $dataForUserConsentIsPresented) {
                 if #available(iOS 16, macOS 13, *) {
                     UserDataConsent()
                         .presentationDragIndicator(.visible)
@@ -145,7 +152,7 @@ struct AuthView: View {
         }
         .navigationTitle("Login")
         #if os(macOS)
-            .frame(maxWidth: 400).padding(.vertical, 120)
+            .frame(maxWidth: 400)
         #endif
 
     }

@@ -28,7 +28,7 @@ struct HomeCardLine: View {
                         .font(.headline)
                 } else {
                 Image(systemName: "globe").foregroundColor(.blue)
-                Text("Auto Select Line")
+                Text("Default Line")
                     .font(.headline)
             }
                 

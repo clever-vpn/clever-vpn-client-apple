@@ -48,7 +48,7 @@ struct SettingsView: View {
                     }
                 }
             }
- 
+
             Section("Split Routing") {
                 NavigationLinkEx(destination: SplitSettingsView()) {
                     VStack(alignment: .leading, spacing: 4) {
@@ -60,7 +60,7 @@ struct SettingsView: View {
                 }
             }
 
-           Section("Connection Info") {
+            Section("Connection Info") {
                 connectionInfoRow(title: "Protocol", value: displayConnValue(cleverVPNModel.connInfo?.protocolType))
                 connectionInfoRow(title: "Relay", value: displayConnValue(cleverVPNModel.connInfo?.relayIP))
                 connectionInfoRow(title: "Upstream", value: displayConnValue(cleverVPNModel.connInfo?.upStream))
@@ -74,21 +74,25 @@ struct SettingsView: View {
                 }
             #endif
 
-                        Section("Log View") {
-                            NavigationLinkEx(destination: LogView()) {
-                                Text("Log View")
-                            }
-                        }
+            Section("Log View") {
+                NavigationLinkEx(destination: LogView()) {
+                    Text("Log View")
+                }
+            }
 
-                        Section("About us") {
-                            let urlString = cleverVPNModel.userInfo?.providerUrl ?? "https://github.com/clever-vpn/clever-vpn-client-apple"
-                            if let url = URL(string: urlString) {
-                                Link("Clever VPN", destination: url)
-                            }
-                        }
+            Section("About us") {
+                let urlString = cleverVPNModel.userInfo?.providerUrl ?? "https://www.clever-vpn.net"
+                if let url = URL(string: urlString) {
+                    Link("Clever VPN", destination: url)
+                }else {
+                    Text("")
+                }
+            }
 
             Section("Version") {
-                let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? NSLocalizedString("Unknown", comment: "")
+                let appVersion =
+                    Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
+                    ?? NSLocalizedString("Unknown", comment: "")
                 let appBuild = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? ""
 
                 Text("(\(appVersion)-\(appBuild))")
@@ -100,9 +104,9 @@ struct SettingsView: View {
 
 }
 
-private extension SettingsView {
+extension SettingsView {
     @ViewBuilder
-    func connectionInfoRow(title: LocalizedStringKey, value: String) -> some View {
+    fileprivate func connectionInfoRow(title: LocalizedStringKey, value: String) -> some View {
         HStack {
             Text(title)
                 .foregroundColor(.secondary)
@@ -113,7 +117,7 @@ private extension SettingsView {
         }
     }
 
-    func displayConnValue(_ value: String?) -> String {
+    fileprivate func displayConnValue(_ value: String?) -> String {
         guard let trimmed = value?.trimmingCharacters(in: .whitespacesAndNewlines), !trimmed.isEmpty else {
             return NSLocalizedString("None", comment: "")
         }
@@ -135,8 +139,8 @@ struct FormModifier: ViewModifier {
     SettingsView().environmentObject(vpnClient)
 }
 
-private extension ProtocolType {
-    var localizedTitle: String {
+extension ProtocolType {
+    fileprivate var localizedTitle: String {
         switch self {
         case .auto:
             return NSLocalizedString("Auto", comment: "")
@@ -155,7 +159,7 @@ private extension ProtocolType {
         }
     }
 
-    var localizedDescription: String {
+    fileprivate var localizedDescription: String {
         switch self {
         case .auto:
             return NSLocalizedString("Automatic protocol selection (default)", comment: "")
