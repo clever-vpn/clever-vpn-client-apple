@@ -28,10 +28,10 @@ struct AuthView: View {
     var body: some View {
         GeometryReader { proxy in
             ScrollView {
-                VStack(spacing: 35) {
+                VStack(spacing: 0) {
                     Spacer(minLength: 0)
 
-                    VStack(spacing: 5) {
+                    VStack(spacing: 8) {
                         WelcomeView(showSpinnner: false)
                         Text("Clever VPN")
                             .font(.largeTitle.bold())
@@ -39,8 +39,9 @@ struct AuthView: View {
                         Text("Fast Modern VPN")
                             .font(.headline.weight(.thin))
                     }
+                    .padding(.bottom, 34)
 
-                    VStack(spacing: 20) {
+                    VStack(spacing: 18) {
                         HStack {
                             TextField("User ID", text: $authKey)
                                 .padding(12)
@@ -61,6 +62,11 @@ struct AuthView: View {
                                     Image(systemName: "qrcode.viewfinder")
                                         .resizable()
                                         .frame(width: 20, height: 20)
+                                        .padding(10)
+                                        .background(
+                                            Circle()
+                                                .fill(Color.gray.opacity(0.14))
+                                        )
                                 }
                                 .buttonStyle(.plain)
                                 .sheet(isPresented: $isShowingScanner) {
@@ -74,16 +80,6 @@ struct AuthView: View {
                             #endif
 
                         }
-
-                        Toggle(isOn: $userConsent) {
-                            Text("Agree to associate device data to your account")
-                                .font(.caption)
-                                .foregroundStyle(.blue)
-                                .onTapGesture {
-                                    dataForUserConsentIsPresented.toggle()
-                                }
-                        }
-                        .padding(.horizontal)
 
                         Button {
                             cleverVPNModel.activate(key: authKey)
@@ -110,8 +106,36 @@ struct AuthView: View {
                         .buttonStyle(.borderedProminent)
                         .disabled(buttonDisabled)
 
+                        VStack(spacing: 8) {
+                            Toggle(isOn: $userConsent) {
+                                Text("Agree to associate device data to your account")
+                                    .font(.caption)
+                                    .foregroundStyle(.secondary)
+                            }
+
+                            Button {
+                                dataForUserConsentIsPresented.toggle()
+                            } label: {
+                                Text("View data usage details")
+                                    .font(.caption)
+                                    .foregroundStyle(.blue)
+                            }
+                            .buttonStyle(.plain)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                        }
+
                     }
+                    .padding(20)
+                    .background(
+                        RoundedRectangle(cornerRadius: 14, style: .continuous)
+                            .fill(Color.uSecondarySystemGroupedBackground)
+                    )
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 14, style: .continuous)
+                            .stroke(Color.secondary.opacity(0.14), lineWidth: 1)
+                    )
                     .padding(.horizontal, 20)
+                    .frame(maxWidth: 520)
                     .disabled(cleverVPNModel.activateStatus == .activate || cleverVPNModel.apiStatus == .connecting)
 
                     Spacer(minLength: 0)

@@ -9,7 +9,15 @@ import CleverVpnKit
 import SwiftUI
 
 struct SplitSettingsView: View {
+    private enum EditorField: Hashable {
+        case ipRules
+        case domainRules
+        case domainRegex
+    }
+
     @EnvironmentObject var cleverVPNModel: VPNClient
+    @Environment(\.scenePhase) private var scenePhase
+    @FocusState private var focusedField: EditorField?
 
     @State private var regionEnabled = false
     @State private var regionCode = ""
@@ -23,7 +31,7 @@ struct SplitSettingsView: View {
     @State private var showDomainAdvanced = false
 
     @State private var didLoad = false
-    @State private var didSave = false
+    @State private var initialSplitSignature = ""
 
     var body: some View {
         Form {
@@ -47,6 +55,8 @@ struct SplitSettingsView: View {
                 ruleEditor(
                     title: "IP CIDR List",
                     hint: "One item per line, for example: 10.0.0.0/8",
+                    placeholder: "10.0.0.0/8\n192.168.0.0/16",
+                    field: .ipRules,
                     text: $ipCidrText
                 )
             }
@@ -56,6 +66,8 @@ struct SplitSettingsView: View {
                 ruleEditor(
                     title: "Domain & Suffix Rules",
                     hint: "One item per line. Use .example.com for suffix, api.example.com for exact domain.",
+                    placeholder: ".example.com\napi.example.com",
+                    field: .domainRules,
                     text: $domainBasicText
                 )
 
@@ -63,16 +75,11 @@ struct SplitSettingsView: View {
                     ruleEditor(
                         title: "Domain Regex",
                         hint: "One regex per line. example: ^stun\\\\..+",
+                        placeholder: "^stun\\..+",
+                        field: .domainRegex,
                         text: $domainRegexText
                     )
                 }
-            }
-
-            Section {
-                Button("Save Split Settings") {
-                    saveSplitInfo()
-                }
-                .disabled(!didLoad)
             }
         }
         .modifier(FormModifier())
@@ -83,25 +90,78 @@ struct SplitSettingsView: View {
         .onReceive(cleverVPNModel.$userInfo) { _ in
             loadSplitInfoIfNeeded()
         }
-        .alert("Saved", isPresented: $didSave) {
-            Button("OK", role: .cancel) {}
-        } message: {
-            Text("Split settings have been updated.")
+        .onDisappear {
+            saveSplitInfoIfNeeded()
+        }
+        .onChange(of: scenePhase) { newPhase in
+            if newPhase == .background {
+                saveSplitInfoIfNeeded()
+            }
         }
     }
 
     @ViewBuilder
-    private func ruleEditor(title: LocalizedStringKey, hint: LocalizedStringKey, text: Binding<String>) -> some View {
-        VStack(alignment: .leading, spacing: 6) {
+    private func ruleEditor(
+        title: LocalizedStringKey,
+        hint: LocalizedStringKey,
+        placeholder: String,
+        field: EditorField,
+        text: Binding<String>
+    ) -> some View {
+        VStack(alignment: .leading, spacing: 10) {
             Text(title)
                 .font(.subheadline)
                 .bold()
             Text(hint)
                 .font(.caption)
                 .foregroundColor(.gray)
+
+            ZStack(alignment: .topLeading) {
+                RoundedRectangle(cornerRadius: 12, style: .continuous)
+                    .fill(editorBackgroundColor)
+
+                if text.wrappedValue.isEmpty {
+                    Text(placeholder)
+                        .font(.system(.body, design: .monospaced))
+                        .foregroundColor(.secondary)
+                        .padding(.horizontal, 9)
+                        .padding(.vertical, 14)
+                        .allowsHitTesting(false)
+                }
+
+                editorTextView(text: text, field: field)
+            }
+            .overlay {
+                RoundedRectangle(cornerRadius: 12, style: .continuous)
+                    .stroke(focusedField == field ? Color.accentColor : Color.gray.opacity(0.2), lineWidth: focusedField == field ? 1.5 : 1)
+            }
+            .contentShape(Rectangle())
+            .onTapGesture {
+                focusedField = field
+            }
+        }
+        .padding(.vertical, 4)
+    }
+
+    @ViewBuilder
+    private func editorTextView(text: Binding<String>, field: EditorField) -> some View {
+        if #available(iOS 16, macOS 13, *) {
             TextEditor(text: text)
-                .frame(minHeight: 88)
+                .focused($focusedField, equals: field)
+                .scrollContentBackground(.hidden)
+                .frame(minHeight: 108)
+                .padding(.horizontal, 4)
+                .padding(.vertical, 6)
                 .font(.system(.body, design: .monospaced))
+                .background(Color.clear)
+        } else {
+            TextEditor(text: text)
+                .focused($focusedField, equals: field)
+                .frame(minHeight: 108)
+                .padding(.horizontal, 4)
+                .padding(.vertical, 6)
+                .font(.system(.body, design: .monospaced))
+                .background(Color.clear)
         }
     }
 
@@ -112,6 +172,7 @@ struct SplitSettingsView: View {
 
         if let splitInfo = cleverVPNModel.userInfo?.splitInfo {
             apply(splitInfo: splitInfo)
+            initialSplitSignature = currentSplitSignature()
             didLoad = true
         }
     }
@@ -143,7 +204,32 @@ struct SplitSettingsView: View {
         )
 
         cleverVPNModel.updateSplitInfo(splitInfo: splitInfo)
-        didSave = true
+    }
+
+    private func saveSplitInfoIfNeeded() {
+        guard didLoad else {
+            return
+        }
+
+        let currentSignature = currentSplitSignature()
+        guard currentSignature != initialSplitSignature else {
+            return
+        }
+
+        saveSplitInfo()
+        initialSplitSignature = currentSignature
+    }
+
+    private func currentSplitSignature() -> String {
+        [
+            regionEnabled ? "1" : "0",
+            regionCode,
+            ipEnabled ? "1" : "0",
+            ipCidrText,
+            domainEnabled ? "1" : "0",
+            domainBasicText,
+            domainRegexText,
+        ].joined(separator: "\u{1F}")
     }
 
     private func parseRules(_ text: String) -> [String] {
@@ -168,7 +254,7 @@ struct SplitSettingsView: View {
 
         for rule in rules {
             if rule.hasPrefix(".") {
-                let suffix = String(rule.drop(while: { $0 == "." }))
+                let suffix = "." + String(rule.drop(while: { $0 == "." }))
                 if !suffix.isEmpty {
                     domainSuffixes.append(suffix)
                 }
@@ -178,6 +264,14 @@ struct SplitSettingsView: View {
         }
 
         return (domains, domainSuffixes)
+    }
+
+    private var editorBackgroundColor: Color {
+        #if os(macOS)
+            Color(nsColor: .textBackgroundColor)
+        #else
+            Color(uiColor: .secondarySystemBackground)
+        #endif
     }
 }
 
