@@ -86,19 +86,6 @@ jobs:
           fi
 
           RELEASE_TAG="v${RAW}"
-          MAIN_SHA="$(gh api repos/${{ github.repository }}/git/ref/heads/main --jq '.object.sha')"
-
-          if gh api repos/${{ github.repository }}/git/ref/tags/${RELEASE_TAG} >/dev/null 2>&1; then
-            TAG_COMMIT_SHA="$(gh api repos/${{ github.repository }}/commits/${RELEASE_TAG} --jq '.sha')"
-            if [[ "${TAG_COMMIT_SHA}" != "${MAIN_SHA}" ]]; then
-              echo "existing tag ${RELEASE_TAG} does not point to main HEAD (${MAIN_SHA})" >&2
-              exit 1
-            fi
-          else
-            gh api repos/${{ github.repository }}/git/refs \
-              -f ref="refs/tags/${RELEASE_TAG}" \
-              -f sha="${MAIN_SHA}" >/dev/null
-          fi
 
           echo "raw_version=${RAW}" >> "$GITHUB_OUTPUT"
           echo "release_tag=${RELEASE_TAG}" >> "$GITHUB_OUTPUT"
@@ -533,6 +520,27 @@ jobs:
       - app_store
     if: ${{ always() && needs.prepare.result == 'success' && (needs.developer_id_dmg.result == 'success' || needs.developer_id_dmg.result == 'skipped') && (needs.app_store.result == 'success' || needs.app_store.result == 'skipped') }}
     steps:
+      - name: Sync release tag to workflow commit
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ needs.prepare.outputs.release_tag }}
+          TARGET_SHA: ${{ github.sha }}
+        run: |
+          set -euo pipefail
+
+          if gh api repos/${{ github.repository }}/git/ref/tags/${RELEASE_TAG} >/dev/null 2>&1; then
+            gh api \
+              --method PATCH \
+              repos/${{ github.repository }}/git/refs/tags/${RELEASE_TAG} \
+              -f sha="${TARGET_SHA}" \
+              -F force=true >/dev/null
+          else
+            gh api repos/${{ github.repository }}/git/refs \
+              -f ref="refs/tags/${RELEASE_TAG}" \
+              -f sha="${TARGET_SHA}" >/dev/null
+          fi
+
       - name: Download DMG artifact
         if: needs.developer_id_dmg.result == 'success'
         uses: actions/download-artifact@v4
