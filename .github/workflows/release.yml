@@ -142,82 +142,13 @@ jobs:
         run: |
           set -euo pipefail
 
-          APP_BUNDLE_ID="$(sed -n 's/^APP_ID[[:space:]]*=[[:space:]]*//p' Config/Developer.xcconfig | head -1 | tr -d '[:space:]')"
-          if [[ -z "$APP_BUNDLE_ID" ]]; then
-            echo "Failed to read APP_ID from Config/Developer.xcconfig" >&2
-            exit 1
-          fi
+          BUILD_NUMBER="$(sh ./scripts/resolve_app_store_build_number.sh \
+            --developer-config Config/Developer.xcconfig \
+            --key-id "$ASC_KEY_ID" \
+            --issuer-id "$ASC_ISSUER_ID" \
+            --api-key-base64 "$ASC_API_KEY_P8_BASE64")"
 
-          KEY_PATH="$RUNNER_TEMP/AuthKey_${ASC_KEY_ID}.p8"
-          printf '%s' "$ASC_API_KEY_P8_BASE64" | base64 --decode > "$KEY_PATH"
-          chmod 600 "$KEY_PATH"
-          export KEY_PATH
-
-          JWT_TOKEN="$(ruby <<'RUBY'
-          require 'base64'
-          require 'json'
-          require 'openssl'
-
-          def base64url(value)
-            Base64.urlsafe_encode64(value, padding: false)
-          end
-
-          key = OpenSSL::PKey.read(File.read(ENV.fetch('KEY_PATH')))
-          now = Time.now.to_i
-          header = {
-            alg: 'ES256',
-            kid: ENV.fetch('ASC_KEY_ID'),
-            typ: 'JWT',
-          }
-          payload = {
-            iss: ENV.fetch('ASC_ISSUER_ID'),
-            exp: now + 1200,
-            aud: 'appstoreconnect-v1',
-          }
-
-          encoded_header = base64url(JSON.generate(header))
-          encoded_payload = base64url(JSON.generate(payload))
-          signing_input = "#{encoded_header}.#{encoded_payload}"
-          der_signature = key.dsa_sign_asn1(OpenSSL::Digest::SHA256.digest(signing_input))
-          sequence = OpenSSL::ASN1.decode(der_signature)
-          raw_signature = sequence.value.map { |integer| integer.value.to_s(2).rjust(32, "\x00") }.join
-
-          print "#{signing_input}.#{base64url(raw_signature)}"
-          RUBY
-          )"
-
-          APP_RESPONSE="$(curl --silent --show-error --fail --get \
-            'https://api.appstoreconnect.apple.com/v1/apps' \
-            -H "Authorization: Bearer ${JWT_TOKEN}" \
-            -H 'Accept: application/json' \
-            --data-urlencode "filter[bundleId]=${APP_BUNDLE_ID}" \
-            --data-urlencode 'limit=1')"
-
-          APP_STORE_APP_ID="$(printf '%s' "$APP_RESPONSE" | jq -r '.data[0].id // empty')"
-          if [[ -z "$APP_STORE_APP_ID" ]]; then
-            echo "Failed to find App Store Connect app for bundle identifier ${APP_BUNDLE_ID}" >&2
-            printf '%s\n' "$APP_RESPONSE" >&2
-            exit 1
-          fi
-
-          NEXT_URL="https://api.appstoreconnect.apple.com/v1/builds?filter[app]=${APP_STORE_APP_ID}&limit=200"
-          MAX_BUILD_NUMBER=0
-
-          while [[ -n "$NEXT_URL" ]]; do
-            RESPONSE="$(curl --globoff --silent --show-error --fail "$NEXT_URL" \
-              -H "Authorization: Bearer ${JWT_TOKEN}" \
-              -H 'Accept: application/json')"
-
-            PAGE_MAX="$(printf '%s' "$RESPONSE" | jq -r '[.data[].attributes.version | select(test("^[0-9]+$")) | tonumber] | max // 0')"
-            if (( PAGE_MAX > MAX_BUILD_NUMBER )); then
-              MAX_BUILD_NUMBER="$PAGE_MAX"
-            fi
-
-            NEXT_URL="$(printf '%s' "$RESPONSE" | jq -r '.links.next // empty')"
-          done
-
-          BUILD_NUMBER=$((MAX_BUILD_NUMBER + 1))
-          echo "Resolved next App Store build number: ${BUILD_NUMBER} (previous max: ${MAX_BUILD_NUMBER})"
+          echo "Resolved next App Store build number: ${BUILD_NUMBER}"
           echo "build_number=${BUILD_NUMBER}" >> "$GITHUB_OUTPUT"
 
   developer_id_dmg:
