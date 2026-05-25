@@ -165,6 +165,41 @@ CleverVpn/
    ./createdmg.sh
    ```
 
+### Updating clever-vpn-kit Without Xcode
+
+The repository includes a small sync flow so local development and CI can update the
+`clever-vpn-kit` dependency from a plain text version file instead of using Xcode's UI.
+
+1. Edit `Config/DependencyVersions.env`
+2. Run:
+   ```bash
+   ./scripts/sync_clever_vpn_kit_version.sh
+   ```
+
+This updates the package requirement in `CleverVpn.xcodeproj/project.pbxproj` and then
+refreshes `Package.resolved` through `xcodebuild -resolvePackageDependencies`.
+
+For CI or one-off overrides, pass the version explicitly:
+```bash
+./scripts/sync_clever_vpn_kit_version.sh --version 1.0.4
+```
+
+### GitHub Release Workflow
+
+The repository release workflow is manual-only and supports two delivery paths from the same dispatch:
+
+- Developer ID DMG for `CleverVpnEx`
+- App Store Connect upload for `CleverVpn` on iOS and macOS
+
+If no version is provided at dispatch time, CI reads the latest GitHub release tag and bumps the patch number.
+Before building, CI updates `Config/Version.xcconfig`, writes `Config/Developer.xcconfig`, and runs:
+
+```bash
+./scripts/sync_clever_vpn_kit_version.sh
+```
+
+Secrets are expected to come from Bitwarden Secrets Manager using the `bitwarden/sm-action` GitHub Action.
+
 ## Contributing
 
 We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.md) for details.

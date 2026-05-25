@@ -1,13 +1,13 @@
 {
-  "originHash" : "a2aa203130af7a5b0f520f338657d90d001305c9a55effabb6c01b4179b95d4e",
+  "originHash" : "00413109cd904b34ccca9304e088da07a96d59a3ce6e03959d4b98b51ffefaa6",
   "pins" : [
     {
-      "identity" : "cocoalumberjack",
+      "identity" : "clever-vpn-kit",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/CocoaLumberjack/CocoaLumberjack.git",
+      "location" : "https://github.com/clever-vpn/clever-vpn-kit",
       "state" : {
-        "revision" : "a9ed4b6f9bdedce7d77046f43adfb8ce1fd54114",
-        "version" : "3.9.0"
+        "revision" : "0ee71b98c13390221acb169c73f5202336649533",
+        "version" : "2.1.2"
       }
     },
     {
@@ -17,33 +17,6 @@
       "state" : {
         "revision" : "5e886430238944c7200fc9e10dbf2d9550dba865",
         "version" : "2.5.2"
-      }
-    },
-    {
-      "identity" : "flagkit",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/clever-vpn/FlagKit.git",
-      "state" : {
-        "revision" : "b0c2eda9586f84af020e7f20830867fbbcb05183",
-        "version" : "2.4.0"
-      }
-    },
-    {
-      "identity" : "svgkit",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/SVGKit/SVGKit.git",
-      "state" : {
-        "revision" : "58152b9f7c85eab239160b36ffdfd364aa43d666",
-        "version" : "3.0.0"
-      }
-    },
-    {
-      "identity" : "swift-log",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/apple/swift-log",
-      "state" : {
-        "revision" : "bbd81b6725ae874c69e9b8c8804d462356b55523",
-        "version" : "1.10.1"
       }
     }
   ],
