@@ -204,7 +204,7 @@ jobs:
           MAX_BUILD_NUMBER=0
 
           while [[ -n "$NEXT_URL" ]]; do
-            RESPONSE="$(curl --silent --show-error --fail "$NEXT_URL" \
+            RESPONSE="$(curl --globoff --silent --show-error --fail "$NEXT_URL" \
               -H "Authorization: Bearer ${JWT_TOKEN}" \
               -H 'Accept: application/json')"
 
