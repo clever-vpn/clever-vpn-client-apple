@@ -383,10 +383,14 @@ jobs:
         env:
           ASC_KEY_ID: ${{ env.ASC_KEY_ID }}
           ASC_ISSUER_ID: ${{ env.ASC_ISSUER_ID }}
-          APPLE_DEVELOPMENT_TEAM: ${{ env.APPLE_DEVELOPMENT_TEAM }}
         run: |
           set -euo pipefail
           EXPORT_PLIST="$RUNNER_TEMP/ExportOptions-iOS.plist"
+
+          if [[ -z "${APPLE_DEVELOPMENT_TEAM:-}" ]]; then
+            echo "APPLE_DEVELOPMENT_TEAM is empty before iOS export" >&2
+            exit 1
+          fi
 
           cat > "$EXPORT_PLIST" <<EOF
           <?xml version="1.0" encoding="UTF-8"?>
@@ -434,10 +438,14 @@ jobs:
         env:
           ASC_KEY_ID: ${{ env.ASC_KEY_ID }}
           ASC_ISSUER_ID: ${{ env.ASC_ISSUER_ID }}
-          APPLE_DEVELOPMENT_TEAM: ${{ env.APPLE_DEVELOPMENT_TEAM }}
         run: |
           set -euo pipefail
           EXPORT_PLIST="$RUNNER_TEMP/ExportOptions-macOS.plist"
+
+          if [[ -z "${APPLE_DEVELOPMENT_TEAM:-}" ]]; then
+            echo "APPLE_DEVELOPMENT_TEAM is empty before macOS export" >&2
+            exit 1
+          fi
 
           cat > "$EXPORT_PLIST" <<EOF
           <?xml version="1.0" encoding="UTF-8"?>
