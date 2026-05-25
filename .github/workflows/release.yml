@@ -177,6 +177,13 @@ jobs:
             exit 1
           fi
 
+          DEVELOPMENT_TEAM="$(sed -n 's/^DEVELOPMENT_TEAM[[:space:]]*=[[:space:]]*//p' Config/Developer.xcconfig | head -1 | tr -d '[:space:]')"
+          if [[ -z "$DEVELOPMENT_TEAM" ]]; then
+            echo "Failed to read DEVELOPMENT_TEAM from Config/Developer.xcconfig" >&2
+            exit 1
+          fi
+          echo "APPLE_DEVELOPMENT_TEAM=$DEVELOPMENT_TEAM" >> "$GITHUB_ENV"
+
       - name: Install certificates and provisioning profiles
         shell: bash
         env:
@@ -376,7 +383,7 @@ jobs:
         env:
           ASC_KEY_ID: ${{ env.ASC_KEY_ID }}
           ASC_ISSUER_ID: ${{ env.ASC_ISSUER_ID }}
-          APPLE_DEVELOPMENT_TEAM: ${{ vars.APPLE_DEVELOPMENT_TEAM }}
+          APPLE_DEVELOPMENT_TEAM: ${{ env.APPLE_DEVELOPMENT_TEAM }}
         run: |
           set -euo pipefail
           EXPORT_PLIST="$RUNNER_TEMP/ExportOptions-iOS.plist"
@@ -427,7 +434,7 @@ jobs:
         env:
           ASC_KEY_ID: ${{ env.ASC_KEY_ID }}
           ASC_ISSUER_ID: ${{ env.ASC_ISSUER_ID }}
-          APPLE_DEVELOPMENT_TEAM: ${{ vars.APPLE_DEVELOPMENT_TEAM }}
+          APPLE_DEVELOPMENT_TEAM: ${{ env.APPLE_DEVELOPMENT_TEAM }}
         run: |
           set -euo pipefail
           EXPORT_PLIST="$RUNNER_TEMP/ExportOptions-macOS.plist"
