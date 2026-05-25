@@ -208,9 +208,13 @@ We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.
 
 1. Fork the repository
 2. Create a feature branch
-3. Make your changes
-4. Add tests if applicable
-5. Submit a pull request
+3. Enable the local Git hooks:
+   ```bash
+   git config core.hooksPath .githooks
+   ```
+4. Make your changes
+5. Add tests if applicable
+6. Submit a pull request
 
 ### Code Style
 

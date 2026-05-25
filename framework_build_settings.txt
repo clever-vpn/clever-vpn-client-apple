@@ -1,3 +1,0 @@
-Command line invocation:
-    /Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -project CleverVpnKit.xcodeproj -scheme CleverVpnKit -configuration Release -showBuildSettings
-
