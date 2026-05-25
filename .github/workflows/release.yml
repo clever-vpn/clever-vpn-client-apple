@@ -151,17 +151,40 @@ jobs:
           KEY_PATH="$RUNNER_TEMP/AuthKey_${ASC_KEY_ID}.p8"
           printf '%s' "$ASC_API_KEY_P8_BASE64" | base64 --decode > "$KEY_PATH"
           chmod 600 "$KEY_PATH"
+          export KEY_PATH
 
-          b64url() {
-            openssl base64 -A | tr '+/' '-_' | tr -d '='
+          JWT_TOKEN="$(ruby <<'RUBY'
+          require 'base64'
+          require 'json'
+          require 'openssl'
+
+          def base64url(value)
+            Base64.urlsafe_encode64(value, padding: false)
+          end
+
+          key = OpenSSL::PKey.read(File.read(ENV.fetch('KEY_PATH')))
+          now = Time.now.to_i
+          header = {
+            alg: 'ES256',
+            kid: ENV.fetch('ASC_KEY_ID'),
+            typ: 'JWT',
+          }
+          payload = {
+            iss: ENV.fetch('ASC_ISSUER_ID'),
+            exp: now + 1200,
+            aud: 'appstoreconnect-v1',
           }
 
-          NOW="$(date +%s)"
-          HEADER="{\"alg\":\"ES256\",\"kid\":\"${ASC_KEY_ID}\",\"typ\":\"JWT\"}"
-          PAYLOAD="{\"iss\":\"${ASC_ISSUER_ID}\",\"exp\":$((NOW + 1200)),\"aud\":\"appstoreconnect-v1\"}"
-          UNSIGNED_TOKEN="$(printf '%s' "$HEADER" | b64url).$(printf '%s' "$PAYLOAD" | b64url)"
-          SIGNATURE="$(printf '%s' "$UNSIGNED_TOKEN" | openssl dgst -binary -sha256 -sign "$KEY_PATH" | b64url)"
-          JWT_TOKEN="${UNSIGNED_TOKEN}.${SIGNATURE}"
+          encoded_header = base64url(JSON.generate(header))
+          encoded_payload = base64url(JSON.generate(payload))
+          signing_input = "#{encoded_header}.#{encoded_payload}"
+          der_signature = key.dsa_sign_asn1(OpenSSL::Digest::SHA256.digest(signing_input))
+          sequence = OpenSSL::ASN1.decode(der_signature)
+          raw_signature = sequence.value.map { |integer| integer.value.to_s(2).rjust(32, "\x00") }.join
+
+          print "#{signing_input}.#{base64url(raw_signature)}"
+          RUBY
+          )"
 
           APP_RESPONSE="$(curl --silent --show-error --fail --get \
             'https://api.appstoreconnect.apple.com/v1/apps' \
