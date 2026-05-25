@@ -157,7 +157,12 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          sudo xcode-select -s /Applications/Xcode.app
+          for xcode_path in /Applications/Xcode_26.*/Contents/Developer /Applications/Xcode_26.app/Contents/Developer /Applications/Xcode.app/Contents/Developer; do
+            if [[ -d "$xcode_path" ]]; then
+              sudo xcode-select -s "$xcode_path"
+              break
+            fi
+          done
           xcodebuild -version
 
       - name: Prepare build configuration
@@ -331,7 +336,12 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          sudo xcode-select -s /Applications/Xcode.app
+          for xcode_path in /Applications/Xcode_26.*/Contents/Developer /Applications/Xcode_26.app/Contents/Developer /Applications/Xcode.app/Contents/Developer; do
+            if [[ -d "$xcode_path" ]]; then
+              sudo xcode-select -s "$xcode_path"
+              break
+            fi
+          done
           xcodebuild -version
 
       - name: Prepare build configuration
