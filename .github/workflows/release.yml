@@ -351,6 +351,13 @@ jobs:
             exit 1
           fi
 
+          DEVELOPMENT_TEAM="$(sed -n 's/^DEVELOPMENT_TEAM[[:space:]]*=[[:space:]]*//p' Config/Developer.xcconfig | head -1 | tr -d '[:space:]')"
+          if [[ -z "$DEVELOPMENT_TEAM" ]]; then
+            echo "Failed to read DEVELOPMENT_TEAM from Config/Developer.xcconfig" >&2
+            exit 1
+          fi
+          echo "APPLE_DEVELOPMENT_TEAM=$DEVELOPMENT_TEAM" >> "$GITHUB_ENV"
+
       - name: Install App Store signing certificate and API key
         shell: bash
         env:
