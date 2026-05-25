@@ -127,9 +127,6 @@ jobs:
           BW_SECRET_ID_ASC_API_KEY_P8_BASE64: ${{ vars.BW_SECRET_ID_ASC_API_KEY_P8_BASE64 }}
           BW_SECRET_ID_MACOS_APP_PROFILE_BASE64: ${{ vars.BW_SECRET_ID_MACOS_APP_PROFILE_BASE64 }}
           BW_SECRET_ID_MACOS_SYSTEM_EXTENSION_PROFILE_BASE64: ${{ vars.BW_SECRET_ID_MACOS_SYSTEM_EXTENSION_PROFILE_BASE64 }}
-          APPLE_DEVELOPMENT_TEAM: ${{ vars.APPLE_DEVELOPMENT_TEAM }}
-          APPLE_APP_ID: ${{ vars.APPLE_APP_ID }}
-          APPLE_APP_ID_MACOSEX: ${{ vars.APPLE_APP_ID_MACOSEX }}
         run: |
           set -euo pipefail
           required_vars=(
@@ -144,11 +141,8 @@ jobs:
           )
 
           if [[ ! -f Config/Developer.xcconfig ]]; then
-            required_vars+=(
-              APPLE_DEVELOPMENT_TEAM
-              APPLE_APP_ID
-              APPLE_APP_ID_MACOSEX
-            )
+            echo "Missing required repository file: Config/Developer.xcconfig" >&2
+            exit 1
           fi
 
           for required_var in "${required_vars[@]}"; do
@@ -184,25 +178,15 @@ jobs:
         env:
           RAW_VERSION: ${{ needs.prepare.outputs.raw_version }}
           BUILD_NUMBER: ${{ needs.prepare.outputs.build_number }}
-          APPLE_DEVELOPMENT_TEAM: ${{ vars.APPLE_DEVELOPMENT_TEAM }}
-          APPLE_APP_ID: ${{ vars.APPLE_APP_ID }}
-          APPLE_APP_ID_MACOSEX: ${{ vars.APPLE_APP_ID_MACOSEX }}
         run: |
           set -euo pipefail
           ./scripts/update_xcode_version.sh --version "$RAW_VERSION" --build "$BUILD_NUMBER"
           ./scripts/sync_clever_vpn_kit_version.sh
 
-          if [[ -n "${APPLE_DEVELOPMENT_TEAM:-}" && -n "${APPLE_APP_ID:-}" && -n "${APPLE_APP_ID_MACOSEX:-}" ]]; then
-            cat > Config/Developer.xcconfig <<EOF
-            DEVELOPMENT_TEAM = ${APPLE_DEVELOPMENT_TEAM}
-            APP_ID = ${APPLE_APP_ID}
-            APP_ID_MACOSEX = ${APPLE_APP_ID_MACOSEX}
-            EOF
-            echo "Wrote Config/Developer.xcconfig from GitHub variables"
-          elif [[ -f Config/Developer.xcconfig ]]; then
+          if [[ -f Config/Developer.xcconfig ]]; then
             echo "Using existing Config/Developer.xcconfig"
           else
-            echo "Missing Developer.xcconfig and GitHub variables for app identifiers" >&2
+            echo "Missing required repository file: Config/Developer.xcconfig" >&2
             exit 1
           fi
 
@@ -314,9 +298,6 @@ jobs:
           BW_SECRET_ID_ASC_KEY_ID: ${{ vars.BW_SECRET_ID_ASC_KEY_ID }}
           BW_SECRET_ID_ASC_ISSUER_ID: ${{ vars.BW_SECRET_ID_ASC_ISSUER_ID }}
           BW_SECRET_ID_ASC_API_KEY_P8_BASE64: ${{ vars.BW_SECRET_ID_ASC_API_KEY_P8_BASE64 }}
-          APPLE_DEVELOPMENT_TEAM: ${{ vars.APPLE_DEVELOPMENT_TEAM }}
-          APPLE_APP_ID: ${{ vars.APPLE_APP_ID }}
-          APPLE_APP_ID_MACOSEX: ${{ vars.APPLE_APP_ID_MACOSEX }}
         run: |
           set -euo pipefail
           required_vars=(
@@ -329,11 +310,8 @@ jobs:
           )
 
           if [[ ! -f Config/Developer.xcconfig ]]; then
-            required_vars+=(
-              APPLE_DEVELOPMENT_TEAM
-              APPLE_APP_ID
-              APPLE_APP_ID_MACOSEX
-            )
+            echo "Missing required repository file: Config/Developer.xcconfig" >&2
+            exit 1
           fi
 
           for required_var in "${required_vars[@]}"; do
@@ -367,25 +345,15 @@ jobs:
         env:
           RAW_VERSION: ${{ needs.prepare.outputs.raw_version }}
           BUILD_NUMBER: ${{ needs.prepare.outputs.build_number }}
-          APPLE_DEVELOPMENT_TEAM: ${{ vars.APPLE_DEVELOPMENT_TEAM }}
-          APPLE_APP_ID: ${{ vars.APPLE_APP_ID }}
-          APPLE_APP_ID_MACOSEX: ${{ vars.APPLE_APP_ID_MACOSEX }}
         run: |
           set -euo pipefail
           ./scripts/update_xcode_version.sh --version "$RAW_VERSION" --build "$BUILD_NUMBER"
           ./scripts/sync_clever_vpn_kit_version.sh
 
-          if [[ -n "${APPLE_DEVELOPMENT_TEAM:-}" && -n "${APPLE_APP_ID:-}" && -n "${APPLE_APP_ID_MACOSEX:-}" ]]; then
-            cat > Config/Developer.xcconfig <<EOF
-            DEVELOPMENT_TEAM = ${APPLE_DEVELOPMENT_TEAM}
-            APP_ID = ${APPLE_APP_ID}
-            APP_ID_MACOSEX = ${APPLE_APP_ID_MACOSEX}
-            EOF
-            echo "Wrote Config/Developer.xcconfig from GitHub variables"
-          elif [[ -f Config/Developer.xcconfig ]]; then
+          if [[ -f Config/Developer.xcconfig ]]; then
             echo "Using existing Config/Developer.xcconfig"
           else
-            echo "Missing Developer.xcconfig and GitHub variables for app identifiers" >&2
+            echo "Missing required repository file: Config/Developer.xcconfig" >&2
             exit 1
           fi
 
