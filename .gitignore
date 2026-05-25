@@ -46,7 +46,6 @@ Preview.html
 DistributeTools/output
 
 # config specific
-Config/Developer.xcconfig
 
 # Vim
 .*.sw*
