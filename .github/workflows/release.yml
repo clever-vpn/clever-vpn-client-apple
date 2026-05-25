@@ -292,6 +292,10 @@ jobs:
           BW_SECRET_ID_ASC_KEY_ID: ${{ vars.BW_SECRET_ID_ASC_KEY_ID }}
           BW_SECRET_ID_ASC_ISSUER_ID: ${{ vars.BW_SECRET_ID_ASC_ISSUER_ID }}
           BW_SECRET_ID_ASC_API_KEY_P8_BASE64: ${{ vars.BW_SECRET_ID_ASC_API_KEY_P8_BASE64 }}
+          BW_SECRET_ID_IOS_APP_STORE_PROFILE_BASE64: ${{ vars.BW_SECRET_ID_IOS_APP_STORE_PROFILE_BASE64 }}
+          BW_SECRET_ID_IOS_EXTENSION_APP_STORE_PROFILE_BASE64: ${{ vars.BW_SECRET_ID_IOS_EXTENSION_APP_STORE_PROFILE_BASE64 }}
+          BW_SECRET_ID_MACOS_APP_STORE_PROFILE_BASE64: ${{ vars.BW_SECRET_ID_MACOS_APP_STORE_PROFILE_BASE64 }}
+          BW_SECRET_ID_MACOS_EXTENSION_APP_STORE_PROFILE_BASE64: ${{ vars.BW_SECRET_ID_MACOS_EXTENSION_APP_STORE_PROFILE_BASE64 }}
         run: |
           set -euo pipefail
           required_vars=(
@@ -301,6 +305,10 @@ jobs:
             BW_SECRET_ID_ASC_KEY_ID
             BW_SECRET_ID_ASC_ISSUER_ID
             BW_SECRET_ID_ASC_API_KEY_P8_BASE64
+            BW_SECRET_ID_IOS_APP_STORE_PROFILE_BASE64
+            BW_SECRET_ID_IOS_EXTENSION_APP_STORE_PROFILE_BASE64
+            BW_SECRET_ID_MACOS_APP_STORE_PROFILE_BASE64
+            BW_SECRET_ID_MACOS_EXTENSION_APP_STORE_PROFILE_BASE64
           )
 
           if [[ ! -f Config/Developer.xcconfig ]]; then
@@ -326,6 +334,10 @@ jobs:
             ${{ vars.BW_SECRET_ID_ASC_KEY_ID }} > ASC_KEY_ID
             ${{ vars.BW_SECRET_ID_ASC_ISSUER_ID }} > ASC_ISSUER_ID
             ${{ vars.BW_SECRET_ID_ASC_API_KEY_P8_BASE64 }} > ASC_API_KEY_P8_BASE64
+            ${{ vars.BW_SECRET_ID_IOS_APP_STORE_PROFILE_BASE64 }} > IOS_APP_STORE_PROFILE_BASE64
+            ${{ vars.BW_SECRET_ID_IOS_EXTENSION_APP_STORE_PROFILE_BASE64 }} > IOS_EXTENSION_APP_STORE_PROFILE_BASE64
+            ${{ vars.BW_SECRET_ID_MACOS_APP_STORE_PROFILE_BASE64 }} > MACOS_APP_STORE_PROFILE_BASE64
+            ${{ vars.BW_SECRET_ID_MACOS_EXTENSION_APP_STORE_PROFILE_BASE64 }} > MACOS_EXTENSION_APP_STORE_PROFILE_BASE64
 
       - name: Select Xcode
         shell: bash
@@ -352,19 +364,31 @@ jobs:
           fi
 
           DEVELOPMENT_TEAM="$(sed -n 's/^DEVELOPMENT_TEAM[[:space:]]*=[[:space:]]*//p' Config/Developer.xcconfig | head -1 | tr -d '[:space:]')"
+          APP_ID="$(sed -n 's/^APP_ID[[:space:]]*=[[:space:]]*//p' Config/Developer.xcconfig | head -1 | tr -d '[:space:]')"
+          APP_ID_MACOSEX="$(sed -n 's/^APP_ID_MACOSEX[[:space:]]*=[[:space:]]*//p' Config/Developer.xcconfig | head -1 | tr -d '[:space:]')"
           if [[ -z "$DEVELOPMENT_TEAM" ]]; then
             echo "Failed to read DEVELOPMENT_TEAM from Config/Developer.xcconfig" >&2
             exit 1
           fi
+          if [[ -z "$APP_ID" || -z "$APP_ID_MACOSEX" ]]; then
+            echo "Failed to read APP_ID or APP_ID_MACOSEX from Config/Developer.xcconfig" >&2
+            exit 1
+          fi
           echo "APPLE_DEVELOPMENT_TEAM=$DEVELOPMENT_TEAM" >> "$GITHUB_ENV"
+          echo "APPLE_APP_ID=$APP_ID" >> "$GITHUB_ENV"
+          echo "APPLE_APP_ID_MACOSEX=$APP_ID_MACOSEX" >> "$GITHUB_ENV"
 
-      - name: Install App Store signing certificate and API key
+      - name: Install App Store signing assets
         shell: bash
         env:
           APPLE_DISTRIBUTION_P12_BASE64: ${{ env.APPLE_DISTRIBUTION_P12_BASE64 }}
           APPLE_DISTRIBUTION_P12_PASSWORD: ${{ env.APPLE_DISTRIBUTION_P12_PASSWORD }}
           ASC_KEY_ID: ${{ env.ASC_KEY_ID }}
           ASC_API_KEY_P8_BASE64: ${{ env.ASC_API_KEY_P8_BASE64 }}
+          IOS_APP_STORE_PROFILE_BASE64: ${{ env.IOS_APP_STORE_PROFILE_BASE64 }}
+          IOS_EXTENSION_APP_STORE_PROFILE_BASE64: ${{ env.IOS_EXTENSION_APP_STORE_PROFILE_BASE64 }}
+          MACOS_APP_STORE_PROFILE_BASE64: ${{ env.MACOS_APP_STORE_PROFILE_BASE64 }}
+          MACOS_EXTENSION_APP_STORE_PROFILE_BASE64: ${{ env.MACOS_EXTENSION_APP_STORE_PROFILE_BASE64 }}
         run: |
           set -euo pipefail
           KEYCHAIN_PATH="$RUNNER_TEMP/ci-signing.keychain-db"
@@ -372,10 +396,15 @@ jobs:
           CERT_PATH="$RUNNER_TEMP/apple-distribution.p12"
           KEY_DIR="$HOME/.appstoreconnect/private_keys"
           KEY_PATH="$KEY_DIR/AuthKey_${ASC_KEY_ID}.p8"
+          PROFILE_DIR="$HOME/Library/MobileDevice/Provisioning Profiles"
 
-          mkdir -p "$KEY_DIR"
+          mkdir -p "$KEY_DIR" "$PROFILE_DIR"
           printf '%s' "$APPLE_DISTRIBUTION_P12_BASE64" | base64 -D > "$CERT_PATH"
           printf '%s' "$ASC_API_KEY_P8_BASE64" | base64 -D > "$KEY_PATH"
+          printf '%s' "$IOS_APP_STORE_PROFILE_BASE64" | base64 -D > "$PROFILE_DIR/ios-app-store.mobileprovision"
+          printf '%s' "$IOS_EXTENSION_APP_STORE_PROFILE_BASE64" | base64 -D > "$PROFILE_DIR/ios-extension-app-store.mobileprovision"
+          printf '%s' "$MACOS_APP_STORE_PROFILE_BASE64" | base64 -D > "$PROFILE_DIR/macos-app-store.provisionprofile"
+          printf '%s' "$MACOS_EXTENSION_APP_STORE_PROFILE_BASE64" | base64 -D > "$PROFILE_DIR/macos-extension-app-store.provisionprofile"
           chmod 600 "$KEY_PATH"
 
           security create-keychain -p "$KEYCHAIN_PASSWORD" "$KEYCHAIN_PATH"
@@ -407,9 +436,18 @@ jobs:
             <key>method</key>
             <string>app-store-connect</string>
             <key>signingStyle</key>
-            <string>automatic</string>
+            <string>manual</string>
+            <key>signingCertificate</key>
+            <string>Apple Distribution</string>
             <key>teamID</key>
             <string>${APPLE_DEVELOPMENT_TEAM}</string>
+            <key>provisioningProfiles</key>
+            <dict>
+              <key>${APPLE_APP_ID}</key>
+              <string>iOS Team Store Provisioning Profile: ${APPLE_APP_ID}</string>
+              <key>${APPLE_APP_ID}.network-extension</key>
+              <string>iOS Team Store Provisioning Profile: ${APPLE_APP_ID}.network-extension</string>
+            </dict>
             <key>uploadSymbols</key>
             <true/>
             <key>stripSwiftSymbols</key>
@@ -435,7 +473,6 @@ jobs:
             -archivePath "$RUNNER_TEMP/CleverVpn-iOS.xcarchive" \
             -exportPath "$RUNNER_TEMP/export-ios" \
             -exportOptionsPlist "$EXPORT_PLIST" \
-            -allowProvisioningUpdates \
             -authenticationKeyPath "$HOME/.appstoreconnect/private_keys/AuthKey_${ASC_KEY_ID}.p8" \
             -authenticationKeyID "$ASC_KEY_ID" \
             -authenticationKeyIssuerID "$ASC_ISSUER_ID"
@@ -462,11 +499,18 @@ jobs:
             <key>method</key>
             <string>app-store-connect</string>
             <key>signingStyle</key>
-            <string>automatic</string>
+            <string>manual</string>
             <key>signingCertificate</key>
             <string>Apple Distribution</string>
             <key>teamID</key>
             <string>${APPLE_DEVELOPMENT_TEAM}</string>
+            <key>provisioningProfiles</key>
+            <dict>
+              <key>${APPLE_APP_ID}</key>
+              <string>Mac Team Store Provisioning Profile: ${APPLE_APP_ID}</string>
+              <key>${APPLE_APP_ID}.network-extension</key>
+              <string>Mac Team Store Provisioning Profile: ${APPLE_APP_ID}.network-extension</string>
+            </dict>
             <key>stripSwiftSymbols</key>
             <true/>
           </dict>
@@ -496,7 +540,6 @@ jobs:
             -archivePath "$RUNNER_TEMP/CleverVpn-macOS.xcarchive" \
             -exportPath "$RUNNER_TEMP/export-macos" \
             -exportOptionsPlist "$EXPORT_PLIST" \
-            -allowProvisioningUpdates \
             -authenticationKeyPath "$HOME/.appstoreconnect/private_keys/AuthKey_${ASC_KEY_ID}.p8" \
             -authenticationKeyID "$ASC_KEY_ID" \
             -authenticationKeyIssuerID "$ASC_ISSUER_ID"
