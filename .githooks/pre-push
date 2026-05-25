@@ -1,0 +1,18 @@
+#!/bin/sh
+
+remote_name="$1"
+remote_url="$2"
+
+while read -r local_ref local_sha remote_ref remote_sha
+do
+    case "$remote_ref" in
+        refs/heads/main)
+            echo "Push to main is blocked locally." >&2
+            echo "Create a feature branch and open a pull request instead." >&2
+            echo "Remote: $remote_name ($remote_url)" >&2
+            exit 1
+            ;;
+    esac
+done
+
+exit 0
