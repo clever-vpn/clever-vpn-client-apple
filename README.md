@@ -192,7 +192,7 @@ The repository release workflow is manual-only and supports two delivery paths f
 - App Store Connect upload for `CleverVpn` on iOS and macOS
 
 If no version is provided at dispatch time, CI reads the latest GitHub release tag and bumps the patch number.
-Before building, CI updates `Config/Version.xcconfig`, writes `Config/Developer.xcconfig`, and runs:
+Before building, CI updates `Config/Version.xcconfig`, reads the committed `Config/Developer.xcconfig`, and runs:
 
 ```bash
 ./scripts/sync_clever_vpn_kit_version.sh

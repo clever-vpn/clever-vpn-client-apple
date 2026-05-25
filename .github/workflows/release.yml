@@ -34,7 +34,7 @@ jobs:
       release_tag: ${{ steps.version.outputs.release_tag }}
       raw_version: ${{ steps.version.outputs.raw_version }}
       is_rc: ${{ steps.version.outputs.is_rc }}
-      build_number: ${{ steps.version.outputs.build_number }}
+      build_number: ${{ steps.build_number.outputs.build_number }}
     steps:
       - name: Enforce main branch only
         shell: bash
@@ -44,6 +44,47 @@ jobs:
             echo "This workflow can only be dispatched from main. Current ref: ${GITHUB_REF}" >&2
             exit 1
           fi
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Validate App Store Connect lookup wiring
+        shell: bash
+        env:
+          BW_SM_ACCESS_TOKEN: ${{ secrets.BW_SM_ACCESS_TOKEN }}
+          BW_SECRET_ID_ASC_KEY_ID: ${{ vars.BW_SECRET_ID_ASC_KEY_ID }}
+          BW_SECRET_ID_ASC_ISSUER_ID: ${{ vars.BW_SECRET_ID_ASC_ISSUER_ID }}
+          BW_SECRET_ID_ASC_API_KEY_P8_BASE64: ${{ vars.BW_SECRET_ID_ASC_API_KEY_P8_BASE64 }}
+        run: |
+          set -euo pipefail
+          required_vars=(
+            BW_SM_ACCESS_TOKEN
+            BW_SECRET_ID_ASC_KEY_ID
+            BW_SECRET_ID_ASC_ISSUER_ID
+            BW_SECRET_ID_ASC_API_KEY_P8_BASE64
+          )
+
+          if [[ ! -f Config/Developer.xcconfig ]]; then
+            echo "Missing required repository file: Config/Developer.xcconfig" >&2
+            exit 1
+          fi
+
+          for required_var in "${required_vars[@]}"; do
+            if [[ -z "${!required_var:-}" ]]; then
+              echo "Missing required GitHub secret/variable: ${required_var}" >&2
+              exit 1
+            fi
+          done
+
+      - name: Load App Store Connect API credentials from Bitwarden
+        uses: bitwarden/sm-action@v3.0.0
+        with:
+          access_token: ${{ secrets.BW_SM_ACCESS_TOKEN }}
+          cloud_region: ${{ vars.BW_CLOUD_REGION || 'us' }}
+          secrets: |
+            ${{ vars.BW_SECRET_ID_ASC_KEY_ID }} > ASC_KEY_ID
+            ${{ vars.BW_SECRET_ID_ASC_ISSUER_ID }} > ASC_ISSUER_ID
+            ${{ vars.BW_SECRET_ID_ASC_API_KEY_P8_BASE64 }} > ASC_API_KEY_P8_BASE64
 
       - name: Normalize version input
         id: version
@@ -90,7 +131,71 @@ jobs:
           echo "raw_version=${RAW}" >> "$GITHUB_OUTPUT"
           echo "release_tag=${RELEASE_TAG}" >> "$GITHUB_OUTPUT"
           echo "is_rc=${IS_RC}" >> "$GITHUB_OUTPUT"
-          echo "build_number=${{ github.run_number }}" >> "$GITHUB_OUTPUT"
+
+      - name: Resolve next App Store build number
+        id: build_number
+        shell: bash
+        env:
+          ASC_KEY_ID: ${{ env.ASC_KEY_ID }}
+          ASC_ISSUER_ID: ${{ env.ASC_ISSUER_ID }}
+          ASC_API_KEY_P8_BASE64: ${{ env.ASC_API_KEY_P8_BASE64 }}
+        run: |
+          set -euo pipefail
+
+          APP_BUNDLE_ID="$(sed -n 's/^APP_ID[[:space:]]*=[[:space:]]*//p' Config/Developer.xcconfig | head -1 | tr -d '[:space:]')"
+          if [[ -z "$APP_BUNDLE_ID" ]]; then
+            echo "Failed to read APP_ID from Config/Developer.xcconfig" >&2
+            exit 1
+          fi
+
+          KEY_PATH="$RUNNER_TEMP/AuthKey_${ASC_KEY_ID}.p8"
+          printf '%s' "$ASC_API_KEY_P8_BASE64" | base64 --decode > "$KEY_PATH"
+          chmod 600 "$KEY_PATH"
+
+          b64url() {
+            openssl base64 -A | tr '+/' '-_' | tr -d '='
+          }
+
+          NOW="$(date +%s)"
+          HEADER="{\"alg\":\"ES256\",\"kid\":\"${ASC_KEY_ID}\",\"typ\":\"JWT\"}"
+          PAYLOAD="{\"iss\":\"${ASC_ISSUER_ID}\",\"exp\":$((NOW + 1200)),\"aud\":\"appstoreconnect-v1\"}"
+          UNSIGNED_TOKEN="$(printf '%s' "$HEADER" | b64url).$(printf '%s' "$PAYLOAD" | b64url)"
+          SIGNATURE="$(printf '%s' "$UNSIGNED_TOKEN" | openssl dgst -binary -sha256 -sign "$KEY_PATH" | b64url)"
+          JWT_TOKEN="${UNSIGNED_TOKEN}.${SIGNATURE}"
+
+          APP_RESPONSE="$(curl --silent --show-error --fail --get \
+            'https://api.appstoreconnect.apple.com/v1/apps' \
+            -H "Authorization: Bearer ${JWT_TOKEN}" \
+            -H 'Accept: application/json' \
+            --data-urlencode "filter[bundleId]=${APP_BUNDLE_ID}" \
+            --data-urlencode 'limit=1')"
+
+          APP_STORE_APP_ID="$(printf '%s' "$APP_RESPONSE" | jq -r '.data[0].id // empty')"
+          if [[ -z "$APP_STORE_APP_ID" ]]; then
+            echo "Failed to find App Store Connect app for bundle identifier ${APP_BUNDLE_ID}" >&2
+            printf '%s\n' "$APP_RESPONSE" >&2
+            exit 1
+          fi
+
+          NEXT_URL="https://api.appstoreconnect.apple.com/v1/builds?filter[app]=${APP_STORE_APP_ID}&limit=200"
+          MAX_BUILD_NUMBER=0
+
+          while [[ -n "$NEXT_URL" ]]; do
+            RESPONSE="$(curl --silent --show-error --fail "$NEXT_URL" \
+              -H "Authorization: Bearer ${JWT_TOKEN}" \
+              -H 'Accept: application/json')"
+
+            PAGE_MAX="$(printf '%s' "$RESPONSE" | jq -r '[.data[].attributes.version | select(test("^[0-9]+$")) | tonumber] | max // 0')"
+            if (( PAGE_MAX > MAX_BUILD_NUMBER )); then
+              MAX_BUILD_NUMBER="$PAGE_MAX"
+            fi
+
+            NEXT_URL="$(printf '%s' "$RESPONSE" | jq -r '.links.next // empty')"
+          done
+
+          BUILD_NUMBER=$((MAX_BUILD_NUMBER + 1))
+          echo "Resolved next App Store build number: ${BUILD_NUMBER} (previous max: ${MAX_BUILD_NUMBER})"
+          echo "build_number=${BUILD_NUMBER}" >> "$GITHUB_OUTPUT"
 
   developer_id_dmg:
     name: Build Developer ID DMG
