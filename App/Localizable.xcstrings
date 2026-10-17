@@ -205,16 +205,6 @@
     "Default Line" : {
 
     },
-    "Detected code" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "检测到的地区代码"
-          }
-        }
-      }
-    },
     "Disconnecting" : {
       "localizations" : {
         "zh-Hans" : {
@@ -566,16 +556,6 @@
         }
       }
     },
-    "Region code is automatically detected by system and not editable." : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "地区代码由系统自动检测，无法编辑。"
-          }
-        }
-      }
-    },
     "Relay" : {
       "localizations" : {
         "zh-Hans" : {
@@ -859,6 +839,96 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "xN = 倍率"
+          }
+        }
+      }
+    },
+    "Not selected" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "未选择"
+          }
+        }
+      }
+    },
+    "Custom code (e.g. us)" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "自定义代码（如 us）"
+          }
+        }
+      }
+    },
+    "Use" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "使用"
+          }
+        }
+      }
+    },
+    "Traffic to the selected region goes direct and everything else goes through the tunnel. Pick the region you are currently in, not the one you want to appear in. Turn it off if unsure." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "所选地区的流量走直连，其它全部走隧道。请选择你当前所在的国家/地区（而不是你想伪装成的地区）；不确定就保持关闭。"
+          }
+        }
+      }
+    },
+    "Asia" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "亚洲"
+          }
+        }
+      }
+    },
+    "Americas" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "美洲"
+          }
+        }
+      }
+    },
+    "Europe" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "欧洲"
+          }
+        }
+      }
+    },
+    "Oceania" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "大洋洲"
+          }
+        }
+      }
+    },
+    "Custom" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "自定义"
           }
         }
       }
