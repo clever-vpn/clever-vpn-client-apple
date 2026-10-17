@@ -21,6 +21,7 @@ struct SplitSettingsView: View {
 
     @State private var regionEnabled = false
     @State private var regionCode = ""
+    @State private var regionCustomCode = ""
 
     @State private var ipEnabled = false
     @State private var ipCidrText = ""
@@ -35,19 +36,41 @@ struct SplitSettingsView: View {
 
     var body: some View {
         Form {
-            Section("Region") {
+            Section {
                 Toggle("Enable region split", isOn: $regionEnabled)
+                    .onChange(of: regionEnabled) { enabled in
+                        // 开启时地区必须有一个值：没有就落缺省（cn）。已有值保留用户的。
+                        if enabled, SplitRegionOptions.normalized(regionCode) == nil {
+                            regionCode = SplitRegionOptions.defaultCode
+                        }
+                    }
 
-                HStack {
-                    Text("Detected code")
-                    Spacer()
-                    Text(regionCode.isEmpty ? NSLocalizedString("Auto", comment: "") : regionCode)
-                        .foregroundColor(.gray)
+                // 选择控件只在开启时才显示：关闭状态下"选地区"没有意义，
+                // 少两行也更不容易让人以为已经生效（值仍然保留在 userInfo 里，不会丢）。
+                if regionEnabled {
+                    // 一行当前值，点进去是「设置 → 语言」那种可滚动的分组列表。
+                    NavigationLinkEx(destination: RegionSelectionView(selectedCode: regionCode) { code in
+                        regionCode = code
+                    }) {
+                        HStack {
+                            Text("Region")
+                            Spacer()
+                            Text(SplitRegionOptions.label(for: regionCode))
+                                .foregroundColor(.gray)
+                        }
+                    }
+
+                    HStack {
+                        TextField("Custom code (e.g. us)", text: $regionCustomCode)
+                            .onSubmit(applyCustomRegionCode)
+                        Button("Use", action: applyCustomRegionCode)
+                            .disabled(SplitRegionOptions.normalized(regionCustomCode) == nil)
+                    }
                 }
-
-                Text("Region code is automatically detected by system and not editable.")
-                    .font(.caption)
-                    .foregroundColor(.gray)
+            } header: {
+                Text("Region")
+            } footer: {
+                Text("Traffic to the selected region goes direct and everything else goes through the tunnel. Pick the region you are currently in, not the one you want to appear in. Turn it off if unsure.")
             }
 
             Section("IP Rules") {
@@ -165,6 +188,15 @@ struct SplitSettingsView: View {
         }
     }
 
+    /// 手动输入的地区代码（内置列表之外的值，例如 `ua`）。
+    private func applyCustomRegionCode() {
+        guard let code = SplitRegionOptions.normalized(regionCustomCode) else {
+            return
+        }
+        regionCode = code
+        regionCustomCode = ""
+    }
+
     private func loadSplitInfoIfNeeded() {
         if didLoad {
             return
@@ -179,7 +211,9 @@ struct SplitSettingsView: View {
 
     private func apply(splitInfo: Split) {
         regionEnabled = splitInfo.region.enable
-        regionCode = splitInfo.region.code
+        // region 代码**永远不为空**：落盘值是空/非法时，界面上直接显示缺省值。
+        regionCode = SplitRegionOptions.normalized(splitInfo.region.code) ?? SplitRegionOptions.defaultCode
+        regionCustomCode = ""
 
         ipEnabled = splitInfo.ip.enable
         ipCidrText = splitInfo.ip.ipCidr.joined(separator: "\n")
@@ -192,8 +226,16 @@ struct SplitSettingsView: View {
     private func saveSplitInfo() {
         let (domainRules, domainSuffixRules) = splitDomainBasicRules(parseRules(domainBasicText))
 
+        // region：**永远写一个合法值**（空/非法 ⇒ 缺省 cn）。
+        // `enable=true` + 空 code 会让引擎去装配名为 `geoip-` 的垃圾规则集（URL 404），
+        // 所以这里不做"没选地区就不算开启"的隐式降级，而是把值补成缺省。
+        let normalizedRegionCode = SplitRegionOptions.normalized(regionCode) ?? SplitRegionOptions.defaultCode
+
         let splitInfo = Split(
-            region: Region(enable: regionEnabled, code: regionCode),
+            region: Region(
+                enable: regionEnabled,
+                code: normalizedRegionCode
+            ),
             ip: IpRule(enable: ipEnabled, ipCidr: parseRules(ipCidrText)),
             domain: DomainRule(
                 enable: domainEnabled,
