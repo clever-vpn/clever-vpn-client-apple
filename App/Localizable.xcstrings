@@ -853,26 +853,6 @@
         }
       }
     },
-    "Custom code (e.g. us)" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "自定义代码（如 us）"
-          }
-        }
-      }
-    },
-    "Use" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "使用"
-          }
-        }
-      }
-    },
     "Traffic to the selected region goes direct and everything else goes through the tunnel. Pick the region you are currently in, not the one you want to appear in. Turn it off if unsure." : {
       "localizations" : {
         "zh-Hans" : {

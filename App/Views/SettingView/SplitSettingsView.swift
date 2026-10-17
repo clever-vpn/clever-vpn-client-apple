@@ -21,7 +21,6 @@ struct SplitSettingsView: View {
 
     @State private var regionEnabled = false
     @State private var regionCode = ""
-    @State private var regionCustomCode = ""
 
     @State private var ipEnabled = false
     @State private var ipCidrText = ""
@@ -60,12 +59,6 @@ struct SplitSettingsView: View {
                         }
                     }
 
-                    HStack {
-                        TextField("Custom code (e.g. us)", text: $regionCustomCode)
-                            .onSubmit(applyCustomRegionCode)
-                        Button("Use", action: applyCustomRegionCode)
-                            .disabled(SplitRegionOptions.normalized(regionCustomCode) == nil)
-                    }
                 }
             } header: {
                 Text("Region")
@@ -189,14 +182,6 @@ struct SplitSettingsView: View {
     }
 
     /// 手动输入的地区代码（内置列表之外的值，例如 `ua`）。
-    private func applyCustomRegionCode() {
-        guard let code = SplitRegionOptions.normalized(regionCustomCode) else {
-            return
-        }
-        regionCode = code
-        regionCustomCode = ""
-    }
-
     private func loadSplitInfoIfNeeded() {
         if didLoad {
             return
@@ -213,7 +198,6 @@ struct SplitSettingsView: View {
         regionEnabled = splitInfo.region.enable
         // region 代码**永远不为空**：落盘值是空/非法时，界面上直接显示缺省值。
         regionCode = SplitRegionOptions.normalized(splitInfo.region.code) ?? SplitRegionOptions.defaultCode
-        regionCustomCode = ""
 
         ipEnabled = splitInfo.ip.enable
         ipCidrText = splitInfo.ip.ipCidr.joined(separator: "\n")
